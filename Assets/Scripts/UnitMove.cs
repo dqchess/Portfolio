@@ -24,6 +24,7 @@ public class UnitMove : MonoBehaviour
         {
             destination = hit.point;
         }
+        transform.LookAt(hit.point);
         return destination;
     }
     void CharMove(Vector3 moveTargetPos)
