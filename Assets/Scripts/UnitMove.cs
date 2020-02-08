@@ -6,7 +6,7 @@ public class UnitMove : MonoBehaviour
     Vector3 moveTargetPos;
     void Start()
     {
-        moveTargetPos = transform.position;
+        moveTargetPos = new Vector3(0,0,0);
     }
     void Update()
     {  
@@ -23,7 +23,6 @@ public class UnitMove : MonoBehaviour
         if(Physics.Raycast(ray,out hit,Mathf.Infinity))
         {
             destination = hit.point;
-            Debug.Log("Raycast Hit...!..."+hit.point.ToString());
         }
         return destination;
     }
