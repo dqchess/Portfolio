@@ -8,6 +8,7 @@ public abstract class UnitMove : MonoBehaviour
     public LayerMask whatIsMonster;
     protected Vector3 moveTargetPos;
     protected Vector3 lastMovingVelocity;
+    protected int attackRange;
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
     protected Transform clickPoint;
@@ -21,10 +22,11 @@ public abstract class UnitMove : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         monsters = new List<Transform>();
         clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
+        moveTargetPos = new Vector3(0,0,0);
     }
     void Start()
     {
-        moveTargetPos = new Vector3(0,0,0);
+        
     }
     void Update()
     {  
@@ -33,6 +35,8 @@ public abstract class UnitMove : MonoBehaviour
             Debug.Log("monster is near!");
             int randomPick = Random.Range(0,colls.Length);
             moveTargetPos = monsters[randomPick].position;
+            if(MonsterIsInAttackRange(monsters[randomPick].position))
+                Attack();
         }
         else
         {
@@ -49,6 +53,13 @@ public abstract class UnitMove : MonoBehaviour
     {
         clickPoint.position = new Vector3(moveTargetPos.x, 0.001f, moveTargetPos.z);
         clickPoint.gameObject.SetActive(true);
+    }
+    bool MonsterIsInAttackRange(Vector3 monsterPosition)
+    {
+        if((Mathf.Abs(monsterPosition.x - transform.position.x) > attackRange)||(Mathf.Abs(monsterPosition.z - transform.position.z) >attackRange))
+            return false;
+        else
+            return true;
     }
     Vector3 GetMovePos()
     {

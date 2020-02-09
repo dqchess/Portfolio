@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SwordmanMove : UnitMove
 {
+
+    void Start()
+    {
+        attackRange = 1;
+    }
     protected override void CharMove(Vector3 moveTargetPos)
     {       
         navMeshAgent.SetDestination(moveTargetPos);

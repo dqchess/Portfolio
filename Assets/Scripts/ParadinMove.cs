@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ParadinMove : UnitMove
 {
+    void Start()
+    {
+        attackRange = 2;   
+    }
     protected override void CharMove(Vector3 moveTargetPos)
     {      
         navMeshAgent.SetDestination(moveTargetPos);
