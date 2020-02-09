@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitMove : MonoBehaviour
+public abstract class UnitMove : MonoBehaviour
 {
-    Vector3 moveTargetPos;
-    Vector3 lastMovingVelocity;
-    Animator animator;
-    NavMeshAgent navMeshAgent;
-    Transform clickPoint;
+    protected Vector3 moveTargetPos;
+    protected Vector3 lastMovingVelocity;
+    protected Animator animator;
+    protected NavMeshAgent navMeshAgent;
+    protected Transform clickPoint;
     public float smoothTime;
 
     void Awake()
@@ -51,66 +51,24 @@ public class UnitMove : MonoBehaviour
         transform.LookAt(hit.point);
         return destination;
     }
-    void CharMove(Vector3 moveTargetPos)
-    {
-        if(ArrivedAtDestination())
-            clickPoint.gameObject.SetActive(false);
-        
-        navMeshAgent.SetDestination(moveTargetPos);
-        MovingAnimation(moveTargetPos);
-    }
-    void MovingAnimation(Vector3 moveTargetPos)
-    {       
-        if(IsNotArrived())
-            MoveAniPlay();
-        else
-            MoveAniStop();
-    }
-    void MoveAniPlay()
-    {
-        Debug.Log(gameObject.name +" is Moving");
-        animator.SetBool("Moving",true);
-        animator.SetFloat("Velocity X", moveTargetPos.x - transform.position.x);
-        animator.SetFloat("Velocity Z", moveTargetPos.z - transform.position.z);   
-    }
-    void MoveAniStop()
-    {
-        Debug.Log(gameObject.name +" is Stopped");
-        animator.SetBool("Moving",false);
-        animator.SetFloat("Velocity X", 0);
-        animator.SetFloat("Velocity Z", 0);   
-    }
-    bool IsNotArrived()
+    protected bool IsNotArrived()
     {
         if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >1f))
             return true;
         else
             return false;
     }
-    void Attack()
-    {
-        animator.SetTrigger("AttackTrigger");
-        animator.SetBool("Moving",true);
-        animator.SetInteger("Weapon",1);
-        animator.SetInteger("Action",1);
-    }
-    bool ArrivedAtDestination()
+    protected bool ArrivedAtDestination()
     {
         if(navMeshAgent.remainingDistance <=0.3f)
             return true;       
         else
-            return false;       
+            return false;  
     }
-    void FootL()
-    {
-        //구매한 에셋에 있는 Read-only 애니메이션 이벤트 때문에 만든 빈 함수
-    }
-    void FootR()
-    {
-        //구매한 에셋에 있는 Read-only 애니메이션 이벤트 때문에 만든 빈 함수
-    }
-    void Hit()
-    {
-        //구매한 에셋에 있는 Read-only 애니메이션 이벤트 때문에 만든 빈 함수
-    }
+    protected abstract void CharMove(Vector3 moveTargetPos);
+    protected abstract void MovingAnimation(Vector3 moveTargetPos);
+    protected abstract void MoveAniPlay();
+    protected abstract void MoveAniStop();  
+    protected abstract void Attack();
+
 }
