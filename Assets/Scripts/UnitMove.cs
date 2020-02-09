@@ -5,17 +5,21 @@ using UnityEngine.AI;
 
 public abstract class UnitMove : MonoBehaviour
 {
+    public LayerMask whatIsMonster;
     protected Vector3 moveTargetPos;
     protected Vector3 lastMovingVelocity;
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
     protected Transform clickPoint;
+    protected Collider[] colls;
+    protected List<Transform> monsters;
     public float smoothTime;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        monsters = new List<Transform>();
         clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
     }
     void Start()
@@ -24,13 +28,20 @@ public abstract class UnitMove : MonoBehaviour
     }
     void Update()
     {  
-        if(Input.GetMouseButton(0))
+        if(IsMonsterNear())
         {
-            moveTargetPos = GetMovePos();
-            SetDestPoint();
+            Debug.Log("monster is near!");
+            int randomPick = Random.Range(0,colls.Length);
+            moveTargetPos = monsters[randomPick].position;
         }
-        if(Input.GetMouseButton(1))
-            Attack();       
+        else
+        {
+            if(Input.GetMouseButton(0))
+            {
+                moveTargetPos = GetMovePos();
+                SetDestPoint();
+            }
+        }      
 
         CharMove(moveTargetPos);
     }
@@ -61,6 +72,19 @@ public abstract class UnitMove : MonoBehaviour
             clickPoint.gameObject.SetActive(false);
             return false;
         }
+    }
+    bool IsMonsterNear()
+    {
+        colls = Physics.OverlapSphere(transform.position,10f,whatIsMonster);
+        if(colls.Length>=1)
+        {
+            for(int i = 0; i<colls.Length; i++)
+                monsters.Add(colls[i].transform);
+            
+            return true;
+        }
+        else 
+            return false;
     }
     protected abstract void CharMove(Vector3 moveTargetPos);
     protected abstract void MovingAnimation();
