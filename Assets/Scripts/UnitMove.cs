@@ -51,22 +51,18 @@ public abstract class UnitMove : MonoBehaviour
         transform.LookAt(hit.point);
         return destination;
     }
-    protected bool IsNotArrived()
+    protected virtual bool IsNotArrived()
     {
         if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >1f))
             return true;
         else
+        {
+            clickPoint.gameObject.SetActive(false);
             return false;
-    }
-    protected bool ArrivedAtDestination()
-    {
-        if(navMeshAgent.remainingDistance <=0.3f)
-            return true;       
-        else
-            return false;  
+        }
     }
     protected abstract void CharMove(Vector3 moveTargetPos);
-    protected abstract void MovingAnimation(Vector3 moveTargetPos);
+    protected abstract void MovingAnimation();
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  
     protected abstract void Attack();

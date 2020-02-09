@@ -5,14 +5,11 @@ using UnityEngine;
 public class SwordmanMove : UnitMove
 {
     protected override void CharMove(Vector3 moveTargetPos)
-    {
-        if(ArrivedAtDestination())
-            clickPoint.gameObject.SetActive(false);
-        
+    {       
         navMeshAgent.SetDestination(moveTargetPos);
-        MovingAnimation(moveTargetPos);
+        MovingAnimation();
     }
-    protected override void MovingAnimation(Vector3 moveTargetPos)
+    protected override void MovingAnimation()
     {       
         if(IsNotArrived())
             MoveAniPlay();
