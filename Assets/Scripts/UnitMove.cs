@@ -53,8 +53,6 @@ public class UnitMove : MonoBehaviour
     }
     void CharMove(Vector3 moveTargetPos)
     {
-        // Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, moveTargetPos, ref lastMovingVelocity, smoothTime);
-        // transform.position = smoothPosition;
         if(ArrivedAtDestination())
             clickPoint.gameObject.SetActive(false);
         
@@ -62,12 +60,33 @@ public class UnitMove : MonoBehaviour
         MovingAnimation(moveTargetPos);
     }
     void MovingAnimation(Vector3 moveTargetPos)
+    {       
+        if(IsNotArrived())
+            MoveAniPlay();
+        else
+            MoveAniStop();
+    }
+    void MoveAniPlay()
     {
+        Debug.Log(gameObject.name +" is Moving");
         animator.SetBool("Moving",true);
         animator.SetFloat("Velocity X", moveTargetPos.x - transform.position.x);
-        animator.SetFloat("Velocity Z", moveTargetPos.z - transform.position.z);
+        animator.SetFloat("Velocity Z", moveTargetPos.z - transform.position.z);   
     }
-
+    void MoveAniStop()
+    {
+        Debug.Log(gameObject.name +" is Stopped");
+        animator.SetBool("Moving",false);
+        animator.SetFloat("Velocity X", 0);
+        animator.SetFloat("Velocity Z", 0);   
+    }
+    bool IsNotArrived()
+    {
+        if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >1f))
+            return true;
+        else
+            return false;
+    }
     void Attack()
     {
         animator.SetTrigger("AttackTrigger");
@@ -75,7 +94,6 @@ public class UnitMove : MonoBehaviour
         animator.SetInteger("Weapon",1);
         animator.SetInteger("Action",1);
     }
-
     bool ArrivedAtDestination()
     {
         if(navMeshAgent.remainingDistance <=0.3f)
