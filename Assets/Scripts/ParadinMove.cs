@@ -30,7 +30,7 @@ public class ParadinMove : UnitMove
     }
     protected override bool IsNotArrived()
     {
-        if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 2f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >2f))
+        if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 3f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >3f))
             return true;
         else
         {
