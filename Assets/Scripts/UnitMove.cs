@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 public class UnitMove : MonoBehaviour
 {
     Vector3 moveTargetPos;
     Vector3 lastMovingVelocity;
     Animator animator;
+    NavMeshAgent navMeshAgent;
+    Transform clickPoint;
     public float smoothTime;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
     }
     void Start()
     {
@@ -19,14 +25,19 @@ public class UnitMove : MonoBehaviour
     void Update()
     {  
         if(Input.GetMouseButton(0))
-            moveTargetPos = GetMovePos();
-
-        if(Input.GetMouseButton(1))
         {
-            Attack();
+            moveTargetPos = GetMovePos();
+            SetDestPoint();
         }
+        if(Input.GetMouseButton(1))
+            Attack();       
 
         CharMove(moveTargetPos);
+    }
+    void SetDestPoint()
+    {
+        clickPoint.position = new Vector3(moveTargetPos.x, 0.001f, moveTargetPos.z);
+        clickPoint.gameObject.SetActive(true);
     }
     Vector3 GetMovePos()
     {
@@ -42,8 +53,12 @@ public class UnitMove : MonoBehaviour
     }
     void CharMove(Vector3 moveTargetPos)
     {
-        Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, moveTargetPos, ref lastMovingVelocity, smoothTime);
-        transform.position = smoothPosition;
+        // Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, moveTargetPos, ref lastMovingVelocity, smoothTime);
+        // transform.position = smoothPosition;
+        if(ArrivedAtDestination())
+            clickPoint.gameObject.SetActive(false);
+        
+        navMeshAgent.SetDestination(moveTargetPos);
         MovingAnimation(moveTargetPos);
     }
     void MovingAnimation(Vector3 moveTargetPos)
@@ -59,6 +74,14 @@ public class UnitMove : MonoBehaviour
         animator.SetBool("Moving",true);
         animator.SetInteger("Weapon",1);
         animator.SetInteger("Action",1);
+    }
+
+    bool ArrivedAtDestination()
+    {
+        if(navMeshAgent.remainingDistance <=0.3f)
+            return true;       
+        else
+            return false;       
     }
     void FootL()
     {
