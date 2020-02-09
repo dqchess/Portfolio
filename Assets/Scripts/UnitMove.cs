@@ -51,6 +51,7 @@ public abstract class UnitMove : MonoBehaviour
         transform.LookAt(hit.point);
         return destination;
     }
+    
     protected virtual bool IsNotArrived()
     {
         if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >1f))

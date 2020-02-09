@@ -18,14 +18,12 @@ public class SwordmanMove : UnitMove
     }
     protected override void MoveAniPlay()
     {
-        Debug.Log(gameObject.name +" is Moving");
         animator.SetBool("Moving",true);
         animator.SetFloat("Velocity X", moveTargetPos.x - transform.position.x);
         animator.SetFloat("Velocity Z", moveTargetPos.z - transform.position.z);   
     }
     protected override void MoveAniStop()
     {
-        Debug.Log(gameObject.name +" is Stopped");
         animator.SetBool("Moving",false);
         animator.SetFloat("Velocity X", 0);
         animator.SetFloat("Velocity Z", 0);   

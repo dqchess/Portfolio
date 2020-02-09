@@ -18,12 +18,10 @@ public class ParadinMove : UnitMove
     }
     protected override void MoveAniPlay()
     {
-        Debug.Log(gameObject.name +" is Moving");
         animator.SetBool("isWalking",true); 
     }
     protected override void MoveAniStop()
     {
-        Debug.Log(gameObject.name +" is Stopped");
         animator.SetBool("isWalking",false); 
     }
     protected override void Attack()
