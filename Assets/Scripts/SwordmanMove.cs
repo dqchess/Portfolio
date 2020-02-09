@@ -8,6 +8,7 @@ public class SwordmanMove : UnitMove
     void Start()
     {
         attackRange = 1;
+        attackDelay = 2;
     }
     protected override void CharMove(Vector3 moveTargetPos)
     {       
@@ -35,10 +36,15 @@ public class SwordmanMove : UnitMove
     }
     protected override void Attack()
     {
-        animator.SetTrigger("AttackTrigger");
-        animator.SetBool("Moving",true);
-        animator.SetInteger("Weapon",1);
-        animator.SetInteger("Action",1);
+        if(timer>attackDelay)
+        {
+            animator.SetTrigger("AttackTrigger");
+            animator.SetBool("Moving",true);
+            animator.SetInteger("Weapon",1);
+            animator.SetInteger("Action",1);
+            timer = 0.0f;
+            Debug.Log(gameObject.name + "is now attacking");
+        }
     }
     void FootL()
     {

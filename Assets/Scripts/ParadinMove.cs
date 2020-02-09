@@ -7,6 +7,7 @@ public class ParadinMove : UnitMove
     void Start()
     {
         attackRange = 2;   
+        attackDelay = 3;
     }
     protected override void CharMove(Vector3 moveTargetPos)
     {      
@@ -30,7 +31,12 @@ public class ParadinMove : UnitMove
     }
     protected override void Attack()
     {
-        animator.SetTrigger("isAttacking");
+        if(timer>attackDelay)
+        {
+            animator.SetTrigger("isAttacking");
+            timer = 0.0f;
+            Debug.Log(gameObject.name + "is now attacking");
+        }
     }
     protected override bool IsNotArrived()
     {

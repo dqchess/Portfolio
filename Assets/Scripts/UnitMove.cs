@@ -14,7 +14,9 @@ public abstract class UnitMove : MonoBehaviour
     protected Transform clickPoint;
     protected Collider[] colls;
     protected List<Transform> monsters;
-    public float smoothTime;
+    protected int attackDelay;
+    protected float timer;
+
 
     void Awake()
     {
@@ -26,17 +28,16 @@ public abstract class UnitMove : MonoBehaviour
     }
     void Start()
     {
-        
+        timer = 0.0f;
     }
     void Update()
     {  
         if(IsMonsterNear())
         {
-            Debug.Log("monster is near!");
             int randomPick = Random.Range(0,colls.Length);
             moveTargetPos = monsters[randomPick].position;
-            if(MonsterIsInAttackRange(monsters[randomPick].position))
-                Attack();
+            if(MonsterIsInAttackRange(monsters[randomPick].position))         
+                Attack();          
         }
         else
         {
@@ -46,8 +47,11 @@ public abstract class UnitMove : MonoBehaviour
                 SetDestPoint();
             }
         }      
-
         CharMove(moveTargetPos);
+    }
+    void FixedUpdate()
+    {
+        timer += Time.deltaTime;
     }
     void SetDestPoint()
     {
