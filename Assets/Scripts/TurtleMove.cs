@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SlimeMove : MonsterMove
+public class TurtleMove : MonsterMove
 {
     void Awake()
     {
@@ -23,21 +23,21 @@ public class SlimeMove : MonsterMove
     }
     protected override void Attack(GameObject attackTarget)
     {
-        if(timer>attackDelay)
-        {
-            animator.SetTrigger("AttackTrigger");
-            timer = 0.0f;
-            UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
-            damagedTarget.HP -= this.ATK;
-            Debug.Log(gameObject.name + "is now attacking "+damagedTarget.name);
-        }
+        // if(timer>attackDelay)
+        // {
+        //     animator.SetTrigger("AttackTrigger");
+        //     timer = 0.0f;
+        //     UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
+        //     damagedTarget.HP -= this.ATK;
+        //     Debug.Log(gameObject.name + "is now attacking "+damagedTarget.name);
+        // }
     }
     protected override void MoveAniPlay()
     {
-        animator.SetFloat("MoveSpeed",1);
+        // animator.SetFloat("MoveSpeed",1);
     }
     protected override void MoveAniStop()
     {
-        animator.SetFloat("MoveSpeed",0);
+        // animator.SetFloat("MoveSpeed",0);
     }
 }
