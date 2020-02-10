@@ -17,7 +17,7 @@ public class ParadinMove : PlayerMove
     {
         attackRange = 2;   
         attackDelay = 3;
-        ATK = 10;
+        ATK = 30;
     }
     protected override void Update()
     {
@@ -31,15 +31,13 @@ public class ParadinMove : PlayerMove
     {
         animator.SetBool("isWalking",false); 
     }
-    protected override void Attack(GameObject attackTarget)
+    protected override void Attack(int attackTarget)
     {
         if(timer>attackDelay)
         {
             animator.SetTrigger("isAttacking");
+            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
-            UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
-            Debug.Log(gameObject.name + "is now attacking "+damagedTarget.gameObject.name);
-
         }
     }
 }

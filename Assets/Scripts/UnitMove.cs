@@ -32,7 +32,9 @@ public abstract class UnitMove : MonoBehaviour
     protected virtual void Update()
     {
         if(HP<=0)
-            Destroy(gameObject);
+        {
+            gameObject.SetActive(false);
+        }
     }
     void FixedUpdate()
     {
@@ -54,6 +56,18 @@ public abstract class UnitMove : MonoBehaviour
             return true;
         }
     }
+    protected virtual void DamageControl(GameObject target, int targetIndex)
+    {
+        if(target.activeSelf)
+        {
+            UnitMove damagedTarget = target.GetComponent<UnitMove>();
+            damagedTarget.HP -= this.ATK;
+        }
+        else
+        {
+            enemys.RemoveAt(targetIndex);
+        }
+    }
     protected bool IsEnemyNear()
     {
         colls = Physics.OverlapSphere(transform.position,10f,whatIsEnemy);
@@ -61,8 +75,10 @@ public abstract class UnitMove : MonoBehaviour
         {
             for(int i = 0; i<colls.Length; i++)
             {
-                enemys.Add(colls[i].gameObject);
+                if(!enemys.Contains(colls[i].gameObject))
+                    enemys.Add(colls[i].gameObject);
             }
+            Debug.Log(gameObject.name +"...has..." + enemys.Count +" enemys");
             return true;
         }
         else 
@@ -76,7 +92,7 @@ public abstract class UnitMove : MonoBehaviour
             MoveAniPlay();
     }
 
-    protected abstract void Attack(GameObject attackTarget);
+    protected abstract void Attack(int attackTarget);
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  
 

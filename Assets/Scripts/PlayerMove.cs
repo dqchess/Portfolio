@@ -12,12 +12,12 @@ public abstract class PlayerMove:UnitMove
         base.Update();
         if(IsEnemyNear())
         {
-            int randomPick = Random.Range(0,colls.Length);
-            moveTargetPos = enemys[randomPick].transform.position;
-            if(EnemyIsInAttacRange(enemys[randomPick].transform.position))
+            int randomTarget = Random.Range(0,colls.Length);
+            moveTargetPos = enemys[randomTarget].transform.position;
+            if(EnemyIsInAttacRange(enemys[randomTarget].transform.position))
             {
-                transform.LookAt(enemys[randomPick].transform.position); 
-                Attack(enemys[randomPick]); 
+                transform.LookAt(enemys[randomTarget].transform.position); 
+                Attack(randomTarget); 
             }         
         }
         else
@@ -43,9 +43,12 @@ public abstract class PlayerMove:UnitMove
         return destination;
     }
     protected void CharMove(Vector3 moveTargetPos)
-    {       
-        navMeshAgent.SetDestination(moveTargetPos);
-        MovingAnimation();
+    {  
+        if(gameObject.activeSelf)
+        {     
+            navMeshAgent.SetDestination(moveTargetPos);
+            MovingAnimation();
+        }
     }
     void SetDestPoint()
     {

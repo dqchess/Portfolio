@@ -15,21 +15,19 @@ public class SlimeMove : MonsterMove
     {
         attackRange = 2;
         attackDelay = 3;
-        ATK = 5;
+        ATK = 25;
     }
     protected override void Update()
     {
         base.Update();
     }
-    protected override void Attack(GameObject attackTarget)
+    protected override void Attack(int attackTarget)
     {
         if(timer>attackDelay)
         {
             animator.SetTrigger("AttackTrigger");
+            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
-            UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
-            damagedTarget.HP -= this.ATK;
-            Debug.Log(gameObject.name + "is now attacking "+damagedTarget.name);
         }
     }
     protected override void MoveAniPlay()

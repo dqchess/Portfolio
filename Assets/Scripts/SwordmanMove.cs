@@ -17,7 +17,7 @@ public class SwordmanMove : PlayerMove
     {
         attackRange = 1;
         attackDelay = 2;
-        ATK = 5;
+        ATK = 15;
     }
     protected override void Update()
     {
@@ -35,7 +35,7 @@ public class SwordmanMove : PlayerMove
         animator.SetFloat("Velocity X", 0);
         animator.SetFloat("Velocity Z", 0);   
     }
-    protected override void Attack(GameObject attackTarget)
+    protected override void Attack(int attackTarget)
     {
         if(timer>attackDelay)
         {
@@ -43,9 +43,8 @@ public class SwordmanMove : PlayerMove
             animator.SetBool("Moving",true);
             animator.SetInteger("Weapon",1);
             animator.SetInteger("Action",1);
+            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
-            UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
-            Debug.Log(gameObject.name + "is now attacking "+damagedTarget.gameObject.name);
         }
     }
 
