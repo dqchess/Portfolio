@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ParadinMove : PlayerMove
 {       
-    void Awake()
+    protected override void Awake()
     {
         clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
         animator = GetComponent<Animator>();
@@ -17,7 +17,7 @@ public class ParadinMove : PlayerMove
     {
         attackRange = 2;   
         attackDelay = 3;
-        ATK = 30;
+        ATK = 50;
     }
     protected override void Update()
     {

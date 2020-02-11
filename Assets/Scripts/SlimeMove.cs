@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SlimeMove : MonsterMove
 {
-    void Awake()
+    protected override void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -15,7 +15,7 @@ public class SlimeMove : MonsterMove
     {
         attackRange = 2;
         attackDelay = 3;
-        ATK = 25;
+        ATK = 5;
     }
     protected override void Update()
     {

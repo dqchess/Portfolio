@@ -17,7 +17,7 @@ public abstract class UnitMove : MonoBehaviour
     protected float timer;
     public float HP;
     protected float ATK;
-    void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -39,6 +39,11 @@ public abstract class UnitMove : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
+        foreach(GameObject enemy in enemys)
+        {
+            if(!enemy.activeSelf)
+                enemys.Remove(enemy);
+        }
     }
     protected bool EnemyIsInAttacRange(Vector3 enemyPosition)
     {
@@ -58,15 +63,8 @@ public abstract class UnitMove : MonoBehaviour
     }
     protected virtual void DamageControl(GameObject target, int targetIndex)
     {
-        if(target.activeSelf)
-        {
-            UnitMove damagedTarget = target.GetComponent<UnitMove>();
-            damagedTarget.HP -= this.ATK;
-        }
-        else
-        {
-            enemys.RemoveAt(targetIndex);
-        }
+        UnitMove damagedTarget = target.GetComponent<UnitMove>();
+        damagedTarget.HP -= this.ATK;
     }
     protected bool IsEnemyNear()
     {
@@ -78,7 +76,6 @@ public abstract class UnitMove : MonoBehaviour
                 if(!enemys.Contains(colls[i].gameObject))
                     enemys.Add(colls[i].gameObject);
             }
-            Debug.Log(gameObject.name +"...has..." + enemys.Count +" enemys");
             return true;
         }
         else 

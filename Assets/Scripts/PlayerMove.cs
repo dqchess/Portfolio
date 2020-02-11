@@ -6,27 +6,39 @@ using UnityEngine.AI;
 public abstract class PlayerMove:UnitMove
 {
     protected Transform clickPoint;
-
+    protected int attackTarget;
+    protected override void Awake()
+    {
+        base.Awake();
+        attackTarget = 0;
+        clickPoint.gameObject.SetActive(false);
+    }
     protected override void Update()
     {
+        Debug.Log(gameObject.name + " has " + enemys.Count +" enemies");
+
         base.Update();
         if(IsEnemyNear())
         {
-            int randomTarget = Random.Range(0,colls.Length);
-            moveTargetPos = enemys[randomTarget].transform.position;
-            if(EnemyIsInAttacRange(enemys[randomTarget].transform.position))
+            int randomPick = Random.Range(0,enemys.Count);
+            if(attackTarget >= enemys.Count)
+                attackTarget = 0;
+            if(!enemys[attackTarget].activeSelf)
+                attackTarget = randomPick;
+            if(EnemyIsInAttacRange(enemys[attackTarget].transform.position))
             {
-                transform.LookAt(enemys[randomTarget].transform.position); 
-                Attack(randomTarget); 
-            }         
+                transform.LookAt(enemys[attackTarget].transform.position); 
+                Attack(attackTarget); 
+            }      
+            moveTargetPos = enemys[attackTarget].transform.position;
         }
         else
         {
-            if(Input.GetMouseButton(0))
-            {
-                moveTargetPos = GetMovePos();
-                SetDestPoint();
-            }
+          if(Input.GetMouseButton(0))
+          {
+              moveTargetPos = GetMovePos();
+              SetDestPoint();
+          }
         }      
         CharMove(moveTargetPos);
     }

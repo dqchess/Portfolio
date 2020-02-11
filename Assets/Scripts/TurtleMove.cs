@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class TurtleMove : MonsterMove
 {
-    void Awake()
+    protected override void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();

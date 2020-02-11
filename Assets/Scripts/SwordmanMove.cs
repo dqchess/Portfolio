@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SwordmanMove : PlayerMove
 {
-    void Awake()
+    protected override void Awake()
     {        
         clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
         animator = GetComponent<Animator>();
@@ -15,9 +15,9 @@ public class SwordmanMove : PlayerMove
     }
     void Start()
     {
-        attackRange = 1;
+        attackRange = 2;
         attackDelay = 2;
-        ATK = 15;
+        ATK = 45;
     }
     protected override void Update()
     {
