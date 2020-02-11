@@ -28,7 +28,6 @@ public abstract class UnitMove : MonoBehaviour
     {
         timer = 0.0f;
     }
-
     protected virtual void Update()
     {
         if(HP<=0)
@@ -39,10 +38,14 @@ public abstract class UnitMove : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        foreach(GameObject enemy in enemys)
+        enemyListControl();   
+    }
+    void enemyListControl()
+    {
+        for(int i = 0; i<enemys.Count; i++)
         {
-            if(!enemy.activeSelf)
-                enemys.Remove(enemy);
+            if(!enemys[i].activeSelf)
+                enemys.RemoveAt(i);
         }
     }
     protected bool EnemyIsInAttacRange(Vector3 enemyPosition)
