@@ -20,11 +20,7 @@ public abstract class PlayerMove:UnitMove
         base.Update();
         if(IsEnemyNear())
         {
-            int randomPick = Random.Range(0,enemys.Count);
-            if(attackTarget >= enemys.Count)
-                attackTarget = 0;
-            if(!enemys[attackTarget].activeSelf)
-                attackTarget = randomPick;
+            AttackTargetSelect();
             if(EnemyIsInAttacRange(enemys[attackTarget].transform.position))
             {
                 transform.LookAt(enemys[attackTarget].transform.position); 
@@ -41,6 +37,14 @@ public abstract class PlayerMove:UnitMove
           }
         }      
         CharMove(moveTargetPos);
+    }
+    void AttackTargetSelect()
+    {
+        int randomPick = Random.Range(0,enemys.Count);
+        if(attackTarget >= enemys.Count)
+            attackTarget = 0;
+        if(!enemys[attackTarget].activeSelf)
+            attackTarget = randomPick;
     }
     protected Vector3 GetMovePos()
     {
