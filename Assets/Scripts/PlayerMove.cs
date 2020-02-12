@@ -15,8 +15,6 @@ public abstract class PlayerMove:UnitMove
     }
     protected override void Update()
     {
-        Debug.Log(gameObject.name + " has " + enemys.Count +" enemies");
-
         base.Update();
         if(IsEnemyNear())
         {

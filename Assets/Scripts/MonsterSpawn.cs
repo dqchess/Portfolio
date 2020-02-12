@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
 {
-
+    public LayerMask whatIsPlayer;
     public GameObject[] monPrefabs;
     private List<GameObject> monsters = new List<GameObject>();
     // Start is called before the first frame update
@@ -15,11 +15,12 @@ public class MonsterSpawn : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if(IsPlayerNear())
-        {
-            Spawn();
-        }
+        {   
+            Debug.Log("player is near....!");
+            Spawn();   
+        }   
     }  
     void Spawn()
     {
@@ -40,19 +41,21 @@ public class MonsterSpawn : MonoBehaviour
         Vector3 size = new Vector3(10,10,0);
 
         float posX = basePosition.x + Random.Range(-size.x/2f, size.x/2f);
-        float posY = basePosition.y + Random.Range(-size.y/2f, size.y/2f);
         float posZ = basePosition.z + Random.Range(-size.z/2f, size.z/2f);
 
-        Vector3 spwanPos = new Vector3(posX, posY, posZ);
+        Vector3 spwanPos = new Vector3(posX, basePosition.y, posZ);
         return spwanPos;
     }
     bool IsPlayerNear()
     {
 
-        Collider[] colls = Physics.OverlapSphere(transform.position,1f,LayerMask.NameToLayer("player"));
+        Collider[] colls = Physics.OverlapSphere(transform.position,10f,whatIsPlayer);
         if(colls.Length>=1)
+        {
+            foreach(Collider player in colls)
+                Debug.Log(player.gameObject.name +" is here!");
             return true;
-      
+        }
         else 
             return false;
     }
