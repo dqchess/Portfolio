@@ -18,12 +18,17 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        ExitControl();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red);
+    }
+
+    void ExitControl()
+    {
         if(Input.GetKey(KeyCode.Escape))
             Application.Quit();
-        
         if(Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.F4))
             Application.Quit();
-
         if(Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.F4))
             Application.Quit();
     }
