@@ -7,7 +7,6 @@ public class ParadinMove : PlayerMove
 {       
     protected override void Awake()
     {
-        clickPoint = GameObject.FindGameObjectWithTag("clickPoint").transform;
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemys = new List<GameObject>();

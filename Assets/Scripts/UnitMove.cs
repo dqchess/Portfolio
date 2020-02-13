@@ -7,7 +7,6 @@ public abstract class UnitMove : MonoBehaviour
 {
     public LayerMask whatIsEnemy;
     protected Vector3 moveTargetPos;
-    protected Vector3 lastMovingVelocity;
     protected int attackRange;
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
