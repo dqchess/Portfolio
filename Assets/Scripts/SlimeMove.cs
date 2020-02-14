@@ -5,36 +5,25 @@ using UnityEngine.AI;
 
 public class SlimeMove : MonsterMove
 {
+    private void Start()
+    {
+        attackRange = 2;
+        attackDelay = 3;
+        ATK = 5;
+    }
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemys = new List<GameObject>();
     }
-    void Start()
-    {
-        attackRange = 2;
-        attackDelay = 3;
-        ATK = 5;
-    }
-    protected override void Update()
-    {
-        base.Update();
-    }
     protected override void Attack()
     {
-        if(timer>attackDelay)
-        {
-            animator.SetTrigger("AttackTrigger");
-            timer = 0.0f;
-        }
+        if (!(timer > attackDelay)) 
+            return;
+        animator.SetTrigger("AttackTrigger");
+        timer = 0.0f;
     }
-    protected override void MoveAniPlay()
-    {
-        animator.SetFloat("MoveSpeed",1);
-    }
-    protected override void MoveAniStop()
-    {
-        animator.SetFloat("MoveSpeed",0);
-    }
+    protected override void MoveAniPlay() => animator.SetFloat("MoveSpeed",1);
+    protected override void MoveAniStop() => animator.SetFloat("MoveSpeed",0);
 }

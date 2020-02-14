@@ -16,6 +16,7 @@ public abstract class UnitMove : MonoBehaviour
     protected float timer;
     public float HP;
     protected float ATK;
+    
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
@@ -24,12 +25,13 @@ public abstract class UnitMove : MonoBehaviour
         moveTargetPos = new Vector3(0,0,0);
         timer = 0.0f;
     }
+    
     protected virtual void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.forward);
         if(HP<=0)
             gameObject.SetActive(false);    
     }
+    
     protected bool EnemyIsInAttackRange(Vector3 enemyPosition)
     {
         if ((Mathf.Abs(enemyPosition.x - transform.position.x) > attackRange) || (Mathf.Abs(enemyPosition.z - transform.position.z) > attackRange))
@@ -37,6 +39,7 @@ public abstract class UnitMove : MonoBehaviour
         else
             return true;
     }
+    
     protected virtual bool IsArrived()
     {
         if ((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f) || (Mathf.Abs(moveTargetPos.z - transform.position.z) > 1f))
@@ -44,15 +47,9 @@ public abstract class UnitMove : MonoBehaviour
         else
             return true;
     }
-    protected virtual void Attack()
-    {
-        GameManager.instance.playerPressedATK = true;
-    }
-    void FixedUpdate()
-    {
-        timer += Time.deltaTime;
-    }
-
+    
+    protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
+    void FixedUpdate() => timer += Time.deltaTime;
 
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  

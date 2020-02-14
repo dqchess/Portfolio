@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,13 +17,32 @@ public abstract class PlayerMove:UnitMove
     private float turnSmoothTime;
     private float xSpeed;
     private float zSpeed;
+    
+    private void Move()
+    {
+        transform.Translate(Vector3.forward * (moveSpeed * zSpeed * Time.deltaTime), Space.Self);
+        transform.Translate(Vector3.right * (moveSpeed * xSpeed * Time.deltaTime), Space.Self);
 
+        if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0 )
+            MoveAniPlay(); 
+        else
+            MoveAniStop();
+    }
+    
+    private void Rotate()
+    {
+        float targetRotation = followCam.transform.eulerAngles.y;
+        targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+        transform.eulerAngles = Vector3.up * targetRotation;
+    }
+    
     protected override void Awake()
     {
         base.Awake();
         moveSpeed = 3f;
         movePos = Vector3.zero;
     }
+    
     protected override void Update()
     {
         base.Update();
@@ -34,22 +54,6 @@ public abstract class PlayerMove:UnitMove
             Rotate();
         if (Input.GetKey(KeyCode.Space))
             Attack();
-    }
-    void Move()
-    {
-        transform.Translate(Vector3.forward * moveSpeed * zSpeed * Time.deltaTime, Space.Self);
-        transform.Translate(Vector3.right * moveSpeed * xSpeed * Time.deltaTime, Space.Self);
-
-        if ((Input.GetAxis("Horizontal")!=0) || Input.GetAxis("Vertical") !=0 )
-            MoveAniPlay(); 
-        else
-            MoveAniStop();
-    }
-    void Rotate()
-    {
-        float targetRotation = followCam.transform.eulerAngles.y;
-        targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
-        transform.eulerAngles = Vector3.up * targetRotation;
     }
 }
 

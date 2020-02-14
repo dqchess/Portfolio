@@ -6,31 +6,22 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool playerPressedATK;
-    void Awake()
+    
+    private void Start() => Cursor.visible = false;
+    private void Update() => DontDestroyOnLoad(gameObject);
+    
+    private void Awake()
     {
         instance = this;
         playerPressedATK = false;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        Cursor.visible = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         ExitControl();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red);
     }
-
-    void ExitControl()
+    private void ExitControl()
     {
         if(Input.GetKey(KeyCode.Escape))
             Application.Quit();

@@ -6,19 +6,19 @@ public class Weapon : MonoBehaviour
 {
     public int weaponDamge;
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (GameManager.instance.playerPressedATK)
+        if (!GameManager.instance.playerPressedATK) 
+            return;
+        
+        if (other.gameObject.CompareTag("Monster"))
         {
-            if (other.gameObject.tag == "Monster")
-            {
-                Debug.Log("칼이 닿았습니다!");
-                GameObject attackedEnemy = other.transform.gameObject;
-                DamageControl(attackedEnemy);
-            }
+            Debug.Log("칼이 닿았습니다!");
+            GameObject attackedEnemy = other.transform.gameObject;
+            DamageControl(attackedEnemy);
         }
     }
-    void DamageControl(GameObject target)
+    private void DamageControl(GameObject target)
     {
         UnitMove damagedTarget = target.GetComponent<UnitMove>();
         damagedTarget.HP -= this.weaponDamge;
