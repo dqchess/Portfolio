@@ -17,7 +17,6 @@ public class ParadinMove : PlayerMove
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemys = new List<GameObject>();
         moveTargetPos = new Vector3(0,0,0);
     }
     protected override void Attack()

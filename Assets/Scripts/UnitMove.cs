@@ -11,7 +11,6 @@ public abstract class UnitMove : MonoBehaviour
     protected int attackRange;
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
-    protected List<GameObject> enemys;
     protected float attackDelay;
     protected float timer;
     public float HP;
@@ -21,7 +20,6 @@ public abstract class UnitMove : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemys = new List<GameObject>();
         moveTargetPos = new Vector3(0,0,0);
         timer = 0.0f;
     }

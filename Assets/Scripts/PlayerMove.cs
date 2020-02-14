@@ -17,18 +17,18 @@ public abstract class PlayerMove:UnitMove
     private float turnSmoothTime;
     private float xSpeed;
     private float zSpeed;
-    
+
     private void Move()
     {
         transform.Translate(Vector3.forward * (moveSpeed * zSpeed * Time.deltaTime), Space.Self);
         transform.Translate(Vector3.right * (moveSpeed * xSpeed * Time.deltaTime), Space.Self);
 
-        if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0 )
-            MoveAniPlay(); 
+        if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0)
+            MoveAniPlay();
         else
             MoveAniStop();
     }
-    
+
     private void Rotate()
     {
         float targetRotation = followCam.transform.eulerAngles.y;

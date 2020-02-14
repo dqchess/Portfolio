@@ -16,7 +16,6 @@ public class TurtleMove : MonsterMove
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemys = new List<GameObject>();
     }
     
     protected override void Attack()

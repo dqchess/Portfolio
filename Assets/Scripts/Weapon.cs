@@ -5,7 +5,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public int weaponDamge;
-
     private void OnTriggerEnter(Collider other)
     {
         if (!GameManager.instance.playerPressedATK) 
@@ -13,7 +12,6 @@ public class Weapon : MonoBehaviour
         
         if (other.gameObject.CompareTag("Monster"))
         {
-            Debug.Log("칼이 닿았습니다!");
             GameObject attackedEnemy = other.transform.gameObject;
             DamageControl(attackedEnemy);
         }
