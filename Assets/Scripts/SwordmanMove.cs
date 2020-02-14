@@ -32,6 +32,7 @@ public class SwordmanMove : PlayerMove
     }
     protected override void Attack()
     {
+        base.Attack();
         if(timer>attackDelay)
         {
             animator.SetTrigger("isAttacking");

@@ -8,16 +8,20 @@ public class Weapon : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Monster")
+        if (GameManager.instance.playerPressedATK)
         {
-            Debug.Log("칼이 닿았습니다!");
-            GameObject attackedEnemy = other.transform.gameObject;
-            DamageControl(attackedEnemy);
+            if (other.gameObject.tag == "Monster")
+            {
+                Debug.Log("칼이 닿았습니다!");
+                GameObject attackedEnemy = other.transform.gameObject;
+                DamageControl(attackedEnemy);
+            }
         }
     }
     void DamageControl(GameObject target)
     {
         UnitMove damagedTarget = target.GetComponent<UnitMove>();
         damagedTarget.HP -= this.weaponDamge;
+        GameManager.instance.playerPressedATK = false;
     }
 }

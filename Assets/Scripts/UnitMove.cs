@@ -44,12 +44,16 @@ public abstract class UnitMove : MonoBehaviour
         else
             return true;
     }
+    protected virtual void Attack()
+    {
+        GameManager.instance.playerPressedATK = true;
+    }
     void FixedUpdate()
     {
         timer += Time.deltaTime;
     }
 
-    protected abstract void Attack();
+
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  
 }

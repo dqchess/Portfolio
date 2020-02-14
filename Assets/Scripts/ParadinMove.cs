@@ -32,7 +32,8 @@ public class ParadinMove : PlayerMove
     }
     protected override void Attack()
     {
-        if(timer>attackDelay)
+        base.Attack();
+        if (timer>attackDelay)
         {
             animator.SetTrigger("isAttacking");
             timer = 0.0f;
