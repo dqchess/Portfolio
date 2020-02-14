@@ -27,3 +27,4 @@ It's almost the same as the single-play rule. However, in network play, players 
 ## development environment
 Engine: Unity 2019.2.3f1  
 IDE: JetBrains Rider 2019.3.2  
+Network: Photon Engine(expectation)
