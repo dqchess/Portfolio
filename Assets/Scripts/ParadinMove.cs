@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class ParadinMove : PlayerMove
 {
-    private static readonly int kIsWalking = Animator.StringToHash("isWalking");
-    private static readonly int kIsAttacking = Animator.StringToHash("isAttacking");
+    private static readonly int walkingAniID = Animator.StringToHash("isWalking");
+    private static readonly int attackAniID = Animator.StringToHash("isAttacking");
     private void Start()
     {
         attackRange = 2;   
@@ -17,17 +17,17 @@ public class ParadinMove : PlayerMove
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        moveTargetPos = new Vector3(0,0,0);
+        moveTargetPos = Vector3.zero;
     }
     protected override void Attack()
     {
         base.Attack();
         if (timer>attackDelay)
         {
-            animator.SetTrigger(kIsAttacking);
+            animator.SetTrigger(attackAniID);
             timer = 0.0f;
         }
     }
-    protected override void MoveAniPlay() => animator.SetBool(kIsWalking,true);
-    protected override void MoveAniStop() => animator.SetBool(kIsWalking,false); 
+    protected override void MoveAniPlay() => animator.SetBool(walkingAniID,true);
+    protected override void MoveAniStop() => animator.SetBool(walkingAniID,false); 
 }

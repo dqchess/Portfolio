@@ -56,27 +56,3 @@ public abstract class PlayerMove:UnitMove
             Attack();
     }
 }
-
-
-
-// 자동 진행 기능 구현 할 때 쓸 함수들
-//TODO: 네비매쉬를 이용한 자동이동
-// protected void CharMove(Vector3 moveTargetPos)
-// {  
-//     if(gameObject.activeSelf)
-//     {     
-//         navMeshAgent.SetDestination(moveTargetPos);
-//         MovingAnimation();
-//     }
-// }
-//TODO: 근처에 적이 있다면 자동으로 전투.
-// if(IsEnemyNear())
-// {
-//     AttackTargetSelect();
-//     if(EnemyIsInAttacRange(enemys[attackTarget].transform.position))
-//     {
-//         transform.LookAt(enemys[attackTarget].transform.position); 
-//         Attack(attackTarget); 
-//     }      
-//     moveTargetPos = enemys[attackTarget].transform.position;
-// }

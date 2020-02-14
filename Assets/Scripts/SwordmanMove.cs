@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class SwordmanMove : PlayerMove
 {
-    private static readonly int kIsAttacking = Animator.StringToHash("isAttacking");
-    private static readonly int kIsMoving = Animator.StringToHash("isMoving");
+    private static readonly int attackAniID = Animator.StringToHash("isAttacking");
+    private static readonly int moveAniID = Animator.StringToHash("isMoving");
     private void Start()
     {
         attackRange = 2;
@@ -23,9 +23,9 @@ public class SwordmanMove : PlayerMove
         if (!(timer > attackDelay)) 
             return;
         base.Attack();
-        animator.SetTrigger(kIsAttacking);
+        animator.SetTrigger(attackAniID);
         timer = 0.0f;
     }
-    protected override void MoveAniPlay() => animator.SetBool(kIsMoving, true);
-    protected override void MoveAniStop() => animator.SetBool(kIsMoving,false);
+    protected override void MoveAniPlay() => animator.SetBool(moveAniID, true);
+    protected override void MoveAniStop() => animator.SetBool(moveAniID,false);
 }
