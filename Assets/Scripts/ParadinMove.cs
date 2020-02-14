@@ -30,12 +30,11 @@ public class ParadinMove : PlayerMove
     {
         animator.SetBool("isWalking",false); 
     }
-    protected override void Attack(int attackTarget)
+    protected override void Attack()
     {
         if(timer>attackDelay)
         {
             animator.SetTrigger("isAttacking");
-            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
         }
     }

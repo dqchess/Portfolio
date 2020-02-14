@@ -5,17 +5,18 @@ using UnityEngine.AI;
 
 public abstract class MonsterMove : UnitMove
 {
+    public LayerMask whatIsPlayer;
+    protected Collider[] player;
     protected override void Update()
     {
         base.Update();
-        if(IsEnemyNear())
-        {
-            int randomTarget = Random.Range(0,colls.Length);
-            if(EnemyIsInAttacRange(enemys[randomTarget].transform.position))
-            {
-                transform.LookAt(enemys[randomTarget].transform.position);                
-                Attack(randomTarget);     
-            }     
-        }
+    }
+    protected bool IsPlayerNear()
+    {
+        player = Physics.OverlapSphere(transform.position, 5f, whatIsPlayer);
+        if (player.Length > 0)
+            return true;
+        else
+            return false;
     }
 }

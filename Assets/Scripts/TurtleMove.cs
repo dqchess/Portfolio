@@ -21,7 +21,7 @@ public class TurtleMove : MonsterMove
     {
         base.Update();
     }
-    protected override void Attack(int attackTarget)
+    protected override void Attack()
     {
         // if(timer>attackDelay)
         // {

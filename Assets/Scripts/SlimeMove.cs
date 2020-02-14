@@ -21,12 +21,11 @@ public class SlimeMove : MonsterMove
     {
         base.Update();
     }
-    protected override void Attack(int attackTarget)
+    protected override void Attack()
     {
         if(timer>attackDelay)
         {
             animator.SetTrigger("AttackTrigger");
-            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
         }
     }

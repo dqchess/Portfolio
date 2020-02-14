@@ -15,7 +15,7 @@ public class SwordmanMove : PlayerMove
     void Start()
     {
         attackRange = 2;
-        attackDelay = 2;
+        attackDelay = 0.25f;
         ATK = 45;
     }
     protected override void Update()
@@ -30,14 +30,12 @@ public class SwordmanMove : PlayerMove
     {
         animator.SetBool("isMoving",false);
     }
-    protected override void Attack(int attackTarget)
+    protected override void Attack()
     {
         if(timer>attackDelay)
         {
             animator.SetTrigger("isAttacking");
-            DamageControl(enemys[attackTarget],attackTarget);
             timer = 0.0f;
         }
     }
-
 }

@@ -10,15 +10,16 @@ public abstract class PlayerMove:UnitMove
     private Vector3 lastMovingVelocity;
     private Vector3 movePos;
     private float moveSpeed = 5f;
+    private float jumpForce = 15f;
     private float maxMoveSpeed = 10f;
+    private float smoothTime = 1f;
     private float turnSmoothTime;
     private float xSpeed;
     private float zSpeed;
-    protected int attackTarget;
+
     protected override void Awake()
     {
         base.Awake();
-        attackTarget = 0;
         moveSpeed = 3f;
         movePos = Vector3.zero;
     }
@@ -28,45 +29,25 @@ public abstract class PlayerMove:UnitMove
         xSpeed = Input.GetAxis("Horizontal");
         zSpeed = Input.GetAxis("Vertical");
         movePos += new Vector3(xSpeed, 0 , zSpeed);
-        Move(movePos);
+        Move();
         if(!Input.GetMouseButton(1))
             Rotate();
+        if (Input.GetKey(KeyCode.Space))
+            Attack();
     }
-    void AttackTargetSelect()
+    void Move()
     {
-        int randomPick = Random.Range(0,enemys.Count);
-        if(attackTarget >= enemys.Count)
-            attackTarget = 0;
-        if(!enemys[attackTarget].activeSelf)
-            attackTarget = randomPick;
-    }
-    
-    protected override bool IsArrived()
-    {
-        if((Mathf.Abs(moveTargetPos.x - transform.position.x) > 1f)||(Mathf.Abs(moveTargetPos.z - transform.position.z) >1f))
-            return false;
-        else
-        {
-            return true;
-        }
-    }
-    void Move(Vector3 movePos)
-    {
-        //transform.position = Vector3.Lerp(transform.position,movePos,moveSpeed);
-        //transform.position = Vector3.SmoothDamp(transform.position, movePos, ref lastMovingVelocity, moveSpeed, maxMoveSpeed);
-        
         transform.Translate(Vector3.forward * moveSpeed * zSpeed * Time.deltaTime, Space.Self);
         transform.Translate(Vector3.right * moveSpeed * xSpeed * Time.deltaTime, Space.Self);
-        if((Input.GetAxis("Horizontal")!=0) || Input.GetAxis("Vertical") !=0 )
-        {
-            MoveAniPlay();
-        }
+
+        if ((Input.GetAxis("Horizontal")!=0) || Input.GetAxis("Vertical") !=0 )
+            MoveAniPlay(); 
         else
             MoveAniStop();
     }
     void Rotate()
     {
-        var targetRotation = followCam.transform.eulerAngles.y;
+        float targetRotation = followCam.transform.eulerAngles.y;
         targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
         transform.eulerAngles = Vector3.up * targetRotation;
     }
