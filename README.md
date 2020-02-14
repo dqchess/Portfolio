@@ -15,7 +15,7 @@ Every five minutes, a boss monster appears. If you knock down the Boss Monster, 
 Boss monsters make other monsters around strong, so it's a good idea to get rid of them as soon as possible.  
 5분마다 보스 몬스터가 등장합니다. 보스 몬스터를 쓰러트리면 체력을 최대치로 회복하게 됩니다. 보스 몬스터는 주변 몬스터를 더 강하게 만듭니다. 빨리 없애는게 좋습니다.  
 
-Random skill is given every 2 minutes. It can be attack skills, it can be recovery skills. Or other helpful skills.
+Random skill is given every 2 minutes. It can be attack skills, it can be recovery skills. Or other helpful skills.  
 2분마다 랜덤 스킬이 주어집니다. 공격 스킬일 수도 있고, 방어 스킬일 수도 있습니다. 혹은 다른 유용한 스킬일 수도 있습니다.
 
 
