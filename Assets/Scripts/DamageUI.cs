@@ -6,6 +6,7 @@ using UnityEngine;
 public class DamageUI : MonoBehaviour
 {
     private TextMesh text;
+
     private void Awake()
     {
         text = GetComponent<TextMesh>();
@@ -15,8 +16,20 @@ public class DamageUI : MonoBehaviour
     {
         if (GameManager.instance.playerGotAttacked)
         {
-            text.text = "Got HIT!";
-            text.color = Color.red;
+            ShowDamagedUI();
         }
     }
+    private void ShowDamagedUI()
+    {
+        text.text = "-"+GameManager.instance.howMuchDamageGet.ToString();
+        text.color = Color.red;
+        GameManager.instance.playerGotAttacked = false;
+        Invoke("closeUI",1f);
+    }
+
+    private void closeUI()
+    {
+        text.color = Color.clear;
+    }
+    
 }

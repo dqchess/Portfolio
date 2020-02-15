@@ -13,6 +13,7 @@ public abstract class MonsterMove : UnitMove
         {
             GameObject attackedEnemy = other.transform.gameObject;
             DamageControl(attackedEnemy);
+
             GameManager.instance.playerGotAttacked = true;
         }
     }

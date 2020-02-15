@@ -19,7 +19,7 @@ public abstract class UnitMove : MonoBehaviour
     {
         UnitMove damagedTarget = target.GetComponent<UnitMove>();
         damagedTarget.HP -= this.ATK;
-        GameManager.instance.playerPressedATK = false;
+        GameManager.instance.howMuchDamageGet = this.ATK;
     }
     
     protected virtual void Awake()

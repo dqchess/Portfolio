@@ -11,12 +11,14 @@ public class GameManager : MonoBehaviour
     public bool playerPressedATK;
     public bool playerGotAttacked;
     public int numOfMonster;
+    public float howMuchDamageGet;
     private GameObject[] monsters;
     private List<UnitMove> monsterHPContainer;
     private void Update() => DontDestroyOnLoad(gameObject);
     
     private void Awake()
     {
+        howMuchDamageGet = 0;
         instance = this;
         playerPressedATK = false;
         playerGotAttacked = false;
