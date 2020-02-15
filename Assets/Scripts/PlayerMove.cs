@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.PlayerLoop;
 
 public abstract class PlayerMove:UnitMove
 {
@@ -17,6 +18,7 @@ public abstract class PlayerMove:UnitMove
     private float turnSmoothTime;
     private float xSpeed;
     private float zSpeed;
+    private bool invicibility;
 
     private void Move()
     {
@@ -40,6 +42,7 @@ public abstract class PlayerMove:UnitMove
     {
         base.Awake();
         moveSpeed = 3f;
+        invicibility = false;
     }
     
     protected override void Update()
@@ -54,4 +57,6 @@ public abstract class PlayerMove:UnitMove
         if (Input.GetKey(KeyCode.Space))
             Attack();
     }
+    
+    protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
 }

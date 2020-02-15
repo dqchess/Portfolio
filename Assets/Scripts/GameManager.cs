@@ -9,19 +9,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool playerPressedATK;
-    public bool playerGotAttacked;
+    public bool invicibility;
     public int numOfMonster;
-    public float howMuchDamageGet;
     private GameObject[] monsters;
     private List<UnitMove> monsterHPContainer;
+    
     private void Update() => DontDestroyOnLoad(gameObject);
     
     private void Awake()
     {
-        howMuchDamageGet = 0;
         instance = this;
         playerPressedATK = false;
-        playerGotAttacked = false;
+        invicibility = false;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         monsterHPContainer = new List<UnitMove>();
     }
@@ -34,13 +33,24 @@ public class GameManager : MonoBehaviour
         }
 
         numOfMonster = monsters.Length;
-        
         Cursor.visible = false;
     }
     private void FixedUpdate()
     {
         ExitControl();
         MonsterNumControl();
+    }
+
+    public void InvicibilityON()
+    {
+        Debug.Log("GameManager.InvicibilityON() function activated..!");
+        invicibility = true;
+        Invoke("InvicibilityOFF",1.5f);
+    }
+
+    public void InvicibilityOFF()
+    {
+        invicibility = false;
     }
     private void ExitControl()
     {

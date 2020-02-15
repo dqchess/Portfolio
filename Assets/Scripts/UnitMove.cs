@@ -5,22 +5,12 @@ using UnityEngine.AI;
 
 public abstract class UnitMove : MonoBehaviour
 {
-    public float atkRange;
-    public LayerMask whatIsEnemy;
-    protected Vector3 moveTargetPos;
     protected int attackRange;
     protected Animator animator;
     protected float attackDelay;
     protected float timer;
     public float HP;
     protected float ATK;
-    
-    protected void DamageControl(GameObject target)
-    {
-        UnitMove damagedTarget = target.GetComponent<UnitMove>();
-        damagedTarget.HP -= this.ATK;
-        GameManager.instance.howMuchDamageGet = this.ATK;
-    }
     
     protected virtual void Awake()
     {
@@ -33,7 +23,6 @@ public abstract class UnitMove : MonoBehaviour
             gameObject.SetActive(false);    
     }
     
-    protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
     private void FixedUpdate() => timer += Time.deltaTime;
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  

@@ -11,7 +11,6 @@ public class SlimeMove : MonsterMove
     {
         base.Start();
         attackRange = 2;
-        attackDelay = 3;
         ATK = 5;
     }
     protected override void Awake()
@@ -19,13 +18,6 @@ public class SlimeMove : MonsterMove
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         startMoveTime = 5f;
-    }
-    protected override void Attack()
-    {
-        if (!(timer > attackDelay)) 
-            return;
-        animator.SetTrigger(kAttackTrigger);
-        timer = 0.0f;
     }
     protected override void MoveAniPlay() => animator.SetFloat(kMoveSpeed,1);
     protected override void MoveAniStop() => animator.SetFloat(kMoveSpeed,0);

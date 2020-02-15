@@ -15,7 +15,6 @@ public class SwordmanMove : PlayerMove
     protected override void Awake()
     {        
         animator = GetComponent<Animator>();
-        moveTargetPos = new Vector3(0,0,0);
     }
     protected override void Attack()
     {

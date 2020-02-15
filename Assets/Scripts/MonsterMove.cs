@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public abstract class MonsterMove : UnitMove
 {
-    public LayerMask whatIsPlayer;
     protected NavMeshAgent navMeshAgent;
+    protected float monsterMoveTimer = 0;
     protected float startMoveTime;
-    protected Collider[] player;
+    public UnityEvent playerHit;
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameObject attackedEnemy = other.transform.gameObject;
-            DamageControl(attackedEnemy);
-
-            GameManager.instance.playerGotAttacked = true;
+            playerHit.Invoke();
         }
     }
     protected override void Update()
@@ -23,21 +22,11 @@ public abstract class MonsterMove : UnitMove
         
         if (this.HP <= 0)
             GameManager.instance.numOfMonster -= 1;
-        
-        if (IsPlayerNear())
-            Attack();
     }
     protected void FixedUpdate()
     {
-        timer++;
+        monsterMoveTimer += Time.deltaTime;
         RandomDestSelect();
-    }
-    protected bool IsPlayerNear()
-    {
-        player = Physics.OverlapSphere(transform.position, 5f, whatIsPlayer);
-        if (player.Length > 0)
-            return true;
-        return false;
     }
 
     protected void Start()
@@ -47,10 +36,11 @@ public abstract class MonsterMove : UnitMove
 
     private void RandomDestSelect()
     {
-        if (timer > startMoveTime)
+        if (monsterMoveTimer > startMoveTime)
         {
             navMeshAgent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
-            timer = 0f;
+            monsterMoveTimer = 0f;
         }
     }
+    
 }
