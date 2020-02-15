@@ -12,6 +12,10 @@ public abstract class MonsterMove : UnitMove
     protected override void Update()
     {
         base.Update();
+        
+        if (this.HP <= 0)
+            GameManager.instance.numOfMonster -= 1;
+        
         if (IsPlayerNear())
             Attack();
     }
@@ -37,5 +41,8 @@ public abstract class MonsterMove : UnitMove
         damagedTarget.HP -= this.ATK;
         GameManager.instance.playerPressedATK = false;
     }
-    protected void Start() => navMeshAgent = GetComponent<NavMeshAgent>();
+    protected void Start()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 }
