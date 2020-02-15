@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        
-        for(int i = 0; i<monsters.Length; i++)
+        for (int i = 0; i < monsters.Length; i++)
+        {
             monsterHPContainer.Add(monsters[i].GetComponent<UnitMove>());
-        
+            monsters[i].transform.position = new Vector3(UnityEngine.Random.Range(-50, 50), 0, UnityEngine.Random.Range(-50, 50));
+        }
+
         numOfMonster = monsters.Length;
+        
         Cursor.visible = false;
     }
     private void FixedUpdate()
