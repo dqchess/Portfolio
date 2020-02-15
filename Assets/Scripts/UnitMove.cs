@@ -25,7 +25,6 @@ public abstract class UnitMove : MonoBehaviour
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
-        moveTargetPos = new Vector3(0,0,0);
         timer = 0.0f;
     }
     protected virtual void Update()

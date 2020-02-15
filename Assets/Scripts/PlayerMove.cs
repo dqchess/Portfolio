@@ -40,7 +40,6 @@ public abstract class PlayerMove:UnitMove
     {
         base.Awake();
         moveSpeed = 3f;
-        movePos = Vector3.zero;
     }
     
     protected override void Update()

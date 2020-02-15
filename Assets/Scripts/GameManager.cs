@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool playerPressedATK;
+    public bool playerGotAttacked;
     public int numOfMonster;
     private GameObject[] monsters;
     private List<UnitMove> monsterHPContainer;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerPressedATK = false;
+        playerGotAttacked = false;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         monsterHPContainer = new List<UnitMove>();
     }

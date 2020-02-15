@@ -11,9 +11,9 @@ public abstract class MonsterMove : UnitMove
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log(gameObject.name + " is attacking player!");
             GameObject attackedEnemy = other.transform.gameObject;
             DamageControl(attackedEnemy);
+            GameManager.instance.playerGotAttacked = true;
         }
     }
     protected override void Update()
