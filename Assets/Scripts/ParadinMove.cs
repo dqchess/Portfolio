@@ -16,7 +16,6 @@ public class ParadinMove : PlayerMove
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
         moveTargetPos = Vector3.zero;
     }
     protected override void Attack()

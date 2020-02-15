@@ -9,6 +9,7 @@ public class SlimeMove : MonsterMove
 
     private void Start()
     {
+        base.Start();
         attackRange = 2;
         attackDelay = 3;
         ATK = 5;
