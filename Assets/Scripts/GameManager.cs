@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
     private void MonsterNumControl()
     {
-        if (numOfMonster < 2)
+        if (numOfMonster < monsters.Length/2)
         {
             for (int i = 0; i < monsters.Length; i++)
             {

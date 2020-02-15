@@ -18,6 +18,7 @@ public class SlimeMove : MonsterMove
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        startMoveTime = 5f;
     }
     protected override void Attack()
     {

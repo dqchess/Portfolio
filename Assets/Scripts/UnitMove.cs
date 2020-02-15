@@ -15,6 +15,13 @@ public abstract class UnitMove : MonoBehaviour
     public float HP;
     protected float ATK;
     
+    protected void DamageControl(GameObject target)
+    {
+        UnitMove damagedTarget = target.GetComponent<UnitMove>();
+        damagedTarget.HP -= this.ATK;
+        GameManager.instance.playerPressedATK = false;
+    }
+    
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,39 +33,10 @@ public abstract class UnitMove : MonoBehaviour
         if(HP<=0)
             gameObject.SetActive(false);    
     }
+    
     protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
-    void FixedUpdate() => timer += Time.deltaTime;
-
+    private void FixedUpdate() => timer += Time.deltaTime;
     protected abstract void MoveAniPlay();
     protected abstract void MoveAniStop();  
 }
 
-
-//이하 코드들은 자동 전투 구현 시 사용할 코드들임
-//===================================================================
-//TODO: 적이 근처에 있는지 탐지하는 코드.
-//protected bool IsEnemyNear()
-//{
-//    colls = Physics.OverlapSphere(transform.position, 10f, whatIsEnemy);
-//    if (colls.Length >= 1)
-//    {
-//        for (int i = 0; i < colls.Length; i++)
-//        {
-//            if (!enemys.Contains(colls[i].gameObject))
-//                enemys.Add(colls[i].gameObject);
-//        }
-//        return true;
-//    }
-//    else
-//        return false;
-//}
-//
-//TODO: 적을 쓰러트렸다면, "근처의 적" 리스트에서 쓰러트린 적을 뺀다.
-//void enemyListControl()
-//{
-//    for (int i = 0; i < enemys.Count; i++)
-//    {
-//        if (!enemys[i].activeSelf)
-//            enemys.RemoveAt(i);
-//    }
-//}
