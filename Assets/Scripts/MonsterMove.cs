@@ -33,7 +33,6 @@ public abstract class MonsterMove : UnitMove
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
-
     private void RandomDestSelect()
     {
         if (monsterMoveTimer > startMoveTime)

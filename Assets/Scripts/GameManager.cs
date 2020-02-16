@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public int numOfMonster;
     private GameObject[] monsters;
     private List<UnitMove> monsterHPContainer;
-    
-    private void Update() => DontDestroyOnLoad(gameObject);
     
     private void Awake()
     {
@@ -29,7 +27,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < monsters.Length; i++)
         {
             monsterHPContainer.Add(monsters[i].GetComponent<UnitMove>());
-            monsters[i].transform.position = new Vector3(UnityEngine.Random.Range(-50, 50), 0, UnityEngine.Random.Range(-50, 50));
+            monsters[i].transform.position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         }
 
         numOfMonster = monsters.Length;
@@ -39,18 +37,6 @@ public class GameManager : MonoBehaviour
     {
         ExitControl();
         MonsterNumControl();
-    }
-
-    public void InvicibilityON()
-    {
-        Debug.Log("GameManager.InvicibilityON() function activated..!");
-        invicibility = true;
-        Invoke("InvicibilityOFF",1.5f);
-    }
-
-    public void InvicibilityOFF()
-    {
-        invicibility = false;
     }
     private void ExitControl()
     {
@@ -72,4 +58,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void InvicibilityON()
+    {
+        invicibility = true;
+        Invoke("InvicibilityOFF",1.5f);
+    }
+    private void Update() => DontDestroyOnLoad(gameObject);
+    public void InvicibilityOFF() => invicibility = false;
+
 }
