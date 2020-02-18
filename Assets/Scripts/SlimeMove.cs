@@ -10,8 +10,6 @@ public class SlimeMove : MonsterMove
     private void Start()
     {
         base.Start();
-        attackRange = 2;
-        ATK = 5;
     }
     protected override void Awake()
     {

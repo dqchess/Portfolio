@@ -27,7 +27,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < monsters.Length; i++)
         {
             monsterHPContainer.Add(monsters[i].GetComponent<UnitMove>());
-            monsters[i].transform.position = new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25));
+            monsters[i].transform.position = 
+                new Vector3(Random.Range(Constants.GetNumber.leftLimit, Constants.GetNumber.rightLimit),
+                0, Random.Range(Constants.GetNumber.downLimit, Constants.GetNumber.upLimit));
         }
 
         numOfMonster = monsters.Length;
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
             {
                 if (!monsters[i].activeSelf)
                 {
-                    monsterHPContainer[i].HP = 100;
+                    monsterHPContainer[i].HP = Constants.GetNumber.maxHP;
                     monsters[i].SetActive(true);
                     numOfMonster++;
                 }
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void InvicibilityON()
     {
         invicibility = true;
-        Invoke("InvicibilityOFF",1.5f);
+        Invoke("InvicibilityOFF", Constants.GetNumber.invicibilityOffTime);
     }
     private void Update() => DontDestroyOnLoad(gameObject);
     public void InvicibilityOFF() => invicibility = false;

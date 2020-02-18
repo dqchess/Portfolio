@@ -8,8 +8,6 @@ public class TurtleMove : MonsterMove
     private void Start()
     {
         base.Start();
-        attackRange = 0;
-        ATK = 10;
     }
 
     protected override void Awake()

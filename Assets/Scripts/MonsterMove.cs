@@ -19,7 +19,7 @@ public abstract class MonsterMove : UnitMove
     {
         base.Update();
         
-        if (this.HP <= 0)
+        if (this.HP <= Constants.GetNumber.dieHP)
             GameManager.instance.numOfMonster -= 1;
     }
     protected void FixedUpdate()
@@ -37,7 +37,10 @@ public abstract class MonsterMove : UnitMove
     {
         if (monsterMoveTimer > startMoveTime)
         {
-            navMeshAgent.SetDestination(new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25)));
+            navMeshAgent.SetDestination(new Vector3(
+                Random.Range(Constants.GetNumber.leftLimit, Constants.GetNumber.rightLimit),
+                0, 
+                Random.Range(Constants.GetNumber.downLimit, Constants.GetNumber.upLimit)));
             monsterMoveTimer = 0f;
         }
     }

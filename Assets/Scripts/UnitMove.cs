@@ -22,7 +22,7 @@ public abstract class UnitMove : MonoBehaviour
     }
     protected virtual void Update()
     {
-        if(HP<=0)
+        if(HP<=Constants.GetNumber.dieHP)
             gameObject.SetActive(false);
     }
     private void FixedUpdate() => timer += Time.deltaTime;

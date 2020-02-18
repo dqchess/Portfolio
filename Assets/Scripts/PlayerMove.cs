@@ -9,10 +9,6 @@ public abstract class PlayerMove : UnitMove
     public Camera followCam;
     private float turnSmoothVelocity;
     private Vector3 lastMovingVelocity;
-    private float moveSpeed = 5f;
-    private float jumpForce = 15f;
-    private float maxMoveSpeed = 10f;
-    private float smoothTime = 1f;
     private float turnSmoothTime;
     private Vector3 moveHorizontal;
     private Vector3 moveVertical;
@@ -44,23 +40,23 @@ public abstract class PlayerMove : UnitMove
 
     private bool IsInBoundary()
     {
-        if ((transform.position.x < 25f) && (transform.position.x > -25f) && (transform.position.z < 25f) &&
-            (transform.position.z > -25f))
+        if ((transform.position.x < Constants.GetNumber.rightLimit)
+            && (transform.position.x > Constants.GetNumber.leftLimit)
+            && (transform.position.z < Constants.GetNumber.upLimit) && (transform.position.z > Constants.GetNumber.downLimit))
             return true;
         return false;
     }
     protected override void Awake()
     {
         base.Awake();
-        moveSpeed = 3f;
         invicibility = false;
     }
     
     protected override void Update()
     {
         base.Update();
-        moveHorizontal = Vector3.right * (moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
-        moveVertical = Vector3.forward * (moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
+        moveHorizontal = Vector3.right * (Constants.GetNumber.moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
+        moveVertical = Vector3.forward * (Constants.GetNumber.moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
         Move();
         if(!Input.GetMouseButton(1))
             Rotate();
