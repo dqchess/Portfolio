@@ -6,11 +6,7 @@ public class SlimeMove : MonsterMove
 {
     private static readonly int kMoveSpeed = Animator.StringToHash("MoveSpeed");
     private static readonly int kAttackTrigger = Animator.StringToHash("AttackTrigger");
-
-    private void Start()
-    {
-        base.Start();
-    }
+    
     protected override void Awake()
     {
         animator = GetComponent<Animator>();

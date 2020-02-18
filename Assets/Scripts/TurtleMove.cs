@@ -5,11 +5,6 @@ using UnityEngine.AI;
 
 public class TurtleMove : MonsterMove
 {
-    private void Start()
-    {
-        base.Start();
-    }
-
     protected override void Awake()
     {
         animator = GetComponent<Animator>();

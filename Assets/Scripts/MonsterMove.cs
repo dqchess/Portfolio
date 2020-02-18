@@ -10,6 +10,7 @@ public abstract class MonsterMove : UnitMove
     public UnityEvent playerHit;
     private void OnCollisionEnter(Collision other)
     {
+        //플레이어와 몬스터가 충돌했는지 체크
         if (other.gameObject.CompareTag("Player"))
         {
             playerHit.Invoke();
@@ -17,6 +18,7 @@ public abstract class MonsterMove : UnitMove
     }
     protected override void Update()
     {
+        //몬스터의 체력이 0 이하로 떨어진다면, 전체 몬스터 수를 하나 줄인다.
         base.Update();
         
         if (this.HP <= Constants.GetNumber.dieHP)
@@ -28,13 +30,9 @@ public abstract class MonsterMove : UnitMove
         RandomDestSelect();
     }
 
-    protected void Start()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
-
     private void RandomDestSelect()
     {
+        //몬스터들이 범위 안에서 무작위한 방향으로 이동한다.
         if (monsterMoveTimer > startMoveTime)
         {
             navMeshAgent.SetDestination(new Vector3(
