@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
@@ -9,17 +10,17 @@ public class UI : MonoBehaviour
     private GameObject player;
     private int lifeIndex;
     private int deathCounter;
+    public UnityEvent playerDie; 
     private void Awake()
     {
         lifeIndex = 0;
         deathCounter = 0;
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void FixedUpdate()
     {
         if(deathCounter == life.Length)
-            player.gameObject.SetActive(false);
+            playerDie.Invoke();
     }
     public void lifeDelete()
     {

@@ -1,22 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class PlayerMove : UnitMove
 {
     public Camera followCam;
+    public Camera deadCam;
     private float turnSmoothVelocity;
     private Vector3 lastMovingVelocity;
     private float turnSmoothTime;
     private Vector3 moveHorizontal;
     private Vector3 moveVertical;
     private bool invicibility;
+    private bool canMove = true;
 
+    private void Start()
+    {
+        followCam.enabled = true;
+        deadCam.enabled = false;
+    }
     private void Move()
     {
-        if (IsInBoundary())
+        if (IsInBoundary() && canMove)
         {
             transform.Translate(moveHorizontal, Space.Self);
             transform.Translate(moveVertical, Space.Self);
@@ -25,7 +33,7 @@ public abstract class PlayerMove : UnitMove
             else
                 MoveAniStop();
         }
-        else
+        else if(!IsInBoundary())
         {
             MoveAniStop();
             SummonInCenter();
@@ -33,16 +41,18 @@ public abstract class PlayerMove : UnitMove
     }
     private void Rotate()
     {
-        float targetRotation = followCam.transform.eulerAngles.y;
-        targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
-        transform.eulerAngles = Vector3.up * targetRotation;
+            float targetRotation = followCam.transform.eulerAngles.y;
+            targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity,
+                turnSmoothTime);
+            transform.eulerAngles = Vector3.up * targetRotation;
     }
 
     private bool IsInBoundary()
     {
         if ((transform.position.x < Constants.GetNumber.rightLimit)
             && (transform.position.x > Constants.GetNumber.leftLimit)
-            && (transform.position.z < Constants.GetNumber.upLimit) && (transform.position.z > Constants.GetNumber.downLimit))
+            && (transform.position.z < Constants.GetNumber.upLimit) 
+            && (transform.position.z > Constants.GetNumber.downLimit))
             return true;
         return false;
     }
@@ -62,11 +72,19 @@ public abstract class PlayerMove : UnitMove
             Rotate();
         if (Input.GetKey(KeyCode.Space))
             Attack();
+        if (!canMove)
+        {
+            followCam.enabled = false;
+            deadCam.enabled = true;
+        }
     }
-
+    
     public void SummonInCenter()
     {
         transform.position = Vector3.zero;
     }
+    public abstract void Die();
+    public void CantMovePlayer() => canMove = false;
     protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
+
 }
