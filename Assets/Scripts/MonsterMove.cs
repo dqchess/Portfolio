@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public abstract class MonsterMove : UnitMove
 {
-    protected NavMeshAgent navMeshAgent;
     protected float monsterMoveTimer = 0;
     protected float startMoveTime;
     public UnityEvent playerHit;
