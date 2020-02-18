@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public DirectionalLight light;
     public bool playerPressedATK;
     public bool invicibility;
     public int numOfMonster;
     private GameObject[] monsters;
+    private GameObject deadCanvas;
     private List<UnitMove> monsterHPContainer;
     
     private void Awake()
@@ -20,7 +27,9 @@ public class GameManager : MonoBehaviour
         playerPressedATK = false;
         invicibility = false;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
+        deadCanvas = GameObject.FindGameObjectWithTag("deadCanvas");
         monsterHPContainer = new List<UnitMove>();
+        
     }
     private void Start()
     {
@@ -31,7 +40,6 @@ public class GameManager : MonoBehaviour
                 new Vector3(Random.Range(Constants.GetNumber.leftLimit, Constants.GetNumber.rightLimit),
                 0, Random.Range(Constants.GetNumber.downLimit, Constants.GetNumber.upLimit));
         }
-
         numOfMonster = monsters.Length;
         Cursor.visible = false;
     }
@@ -71,5 +79,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update() => DontDestroyOnLoad(gameObject);
     public void InvicibilityOFF() => invicibility = false;
+    public void deadScreenOn() => light.color = new LinearColor();
+
 
 }
