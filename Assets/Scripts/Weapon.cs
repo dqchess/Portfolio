@@ -24,3 +24,4 @@ public class Weapon : MonoBehaviour
         GameManager.instance.playerPressedATK = false;
     }
 }
+//
