@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < monsters.Length; i++)
         {
             monsterHPContainer.Add(monsters[i].GetComponent<UnitMove>());
-            monsters[i].transform.position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+            monsters[i].transform.position = new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25));
         }
 
         numOfMonster = monsters.Length;

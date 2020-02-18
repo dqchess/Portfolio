@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class PlayerMove:UnitMove
+public abstract class PlayerMove : UnitMove
 {
     public Camera followCam;
     private float turnSmoothVelocity;
@@ -20,14 +20,21 @@ public abstract class PlayerMove:UnitMove
 
     private void Move()
     {
-        transform.Translate(moveHorizontal, Space.Self);
-        transform.Translate(moveVertical,Space.Self);     
-        if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0)
-            MoveAniPlay();
+        if (IsInBoundary())
+        {
+            transform.Translate(moveHorizontal, Space.Self);
+            transform.Translate(moveVertical, Space.Self);
+            if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0)
+                MoveAniPlay();
+            else
+                MoveAniStop();
+        }
         else
+        {
             MoveAniStop();
+            SummonInCenter();
+        }
     }
-
     private void Rotate()
     {
         float targetRotation = followCam.transform.eulerAngles.y;
@@ -35,7 +42,13 @@ public abstract class PlayerMove:UnitMove
         transform.eulerAngles = Vector3.up * targetRotation;
     }
 
-
+    private bool IsInBoundary()
+    {
+        if ((transform.position.x < 25f) && (transform.position.x > -25f) && (transform.position.z < 25f) &&
+            (transform.position.z > -25f))
+            return true;
+        return false;
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -55,5 +68,9 @@ public abstract class PlayerMove:UnitMove
             Attack();
     }
 
+    public void SummonInCenter()
+    {
+        transform.position = Vector3.zero;
+    }
     protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
 }

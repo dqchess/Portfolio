@@ -32,13 +32,14 @@ public abstract class MonsterMove : UnitMove
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
+
     private void RandomDestSelect()
     {
         if (monsterMoveTimer > startMoveTime)
         {
-            navMeshAgent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
+            navMeshAgent.SetDestination(new Vector3(Random.Range(-25, 25), 0, Random.Range(-25, 25)));
             monsterMoveTimer = 0f;
         }
     }
-    
+
 }
