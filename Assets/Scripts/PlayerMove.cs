@@ -16,7 +16,6 @@ public abstract class PlayerMove : UnitMove
 
     private void Move()
     {
-        //자유롭게 이동 가능하지만, 범위를 넘어서면 맵 한 가운데로 소환된다.
         if (IsInBoundary())
         {
             transform.Translate(moveHorizontal, Space.Self);

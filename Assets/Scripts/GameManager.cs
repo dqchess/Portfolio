@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        //몬스터들을 랜덤하게 배치한다.
         for (int i = 0; i < monsters.Length; i++)
         {
             monsterHPContainer.Add(monsters[i].GetComponent<UnitMove>());
@@ -48,7 +47,6 @@ public class GameManager : MonoBehaviour
     }
     private void MonsterNumControl()
     {
-        //몬스터의 수가 절반 이하로 떨어진다면 사망한 몬스터들이 모두 부활한다.
         if (numOfMonster < monsters.Length/2)
         {
             for (int i = 0; i < monsters.Length; i++)
@@ -64,7 +62,6 @@ public class GameManager : MonoBehaviour
     }
     public void InvicibilityON()
     {
-        //플레이어 피격 시 짧은 시간 동안 무적
         invicibility = true;
         Invoke("InvicibilityOFF", Constants.GetNumber.invicibilityOffTime);
     }

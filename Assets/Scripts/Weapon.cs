@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
     public int weaponDamge;
     private void OnTriggerEnter(Collider other)
     {
-        //무기를 휘둘렀을 떄, 몬스터가 맞는다면 데미지를 준다.
         if (!GameManager.instance.playerPressedATK) 
             return;
         
@@ -24,4 +23,3 @@ public class Weapon : MonoBehaviour
         GameManager.instance.playerPressedATK = false;
     }
 }
-//

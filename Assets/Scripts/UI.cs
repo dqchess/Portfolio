@@ -18,13 +18,11 @@ public class UI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //모든 라이프를 잃으면 게임 오버.
         if(deathCounter == life.Length)
             player.gameObject.SetActive(false);
     }
     public void lifeDelete()
     {
-        //플레이어가 피격 당하면 하트를 하나 줄인다.
         if (GameManager.instance.invicibility)
             return;
         if (lifeIndex < life.Length)
