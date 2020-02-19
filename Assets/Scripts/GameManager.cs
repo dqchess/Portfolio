@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update() => DontDestroyOnLoad(gameObject);
     public void InvicibilityOFF() => invicibility = false;
-    public void deadScreenOn() => light.color = new LinearColor();
 
 
 }

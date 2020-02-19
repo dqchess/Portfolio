@@ -16,10 +16,7 @@ public class FadeOut : MonoBehaviour
     void Awake()
     {
         fadeImg = GetComponent<Image>();
-        InStartFadeAnim();
-
     }
-
     public void OutStartFadeAnim()
     {
         if(isPlaying == true) //중복재생방지
@@ -31,14 +28,6 @@ public class FadeOut : MonoBehaviour
         StartCoroutine("fadeoutplay");    //코루틴 실행
 
     }
-    public void InStartFadeAnim()
-    {
-        if (isPlaying == true) //중복재생방지
-        {
-            return;
-        }
-        StartCoroutine("fadeIntanim");
-    }
 
     IEnumerator fadeoutplay()
     {
@@ -47,7 +36,7 @@ public class FadeOut : MonoBehaviour
         time = 0f;
         fadecolor.a = Mathf.Lerp(start, end,  time);
         
-        while (fadecolor.a < 1f)
+        while (fadecolor.a < 0.7f)
         {
             time += Time.deltaTime / FadeTime;
             fadecolor.a = Mathf.Lerp(start, end, time);
