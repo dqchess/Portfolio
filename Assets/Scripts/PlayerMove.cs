@@ -90,13 +90,14 @@ public abstract class PlayerMove : UnitMove
 
     protected virtual void Attack()
     {
-        Debug.Log("Attack!");
-        RaycastHit hit;
-        if (Physics.BoxCast(transform.position, transform.lossyScale * 10 ,transform.forward, out hit, transform.rotation, Mathf.Infinity))
-        {
-            if (hit.transform.CompareTag("Monster"))
-                DamageControl(hit.transform.gameObject);
-        }
+        // Debug.Log("Attack!");
+        // Gizmos.color = Color.red;
+        // RaycastHit hit;
+        // if (Physics.BoxCast(transform.position, transform.lossyScale * 10 ,transform.forward, out hit, transform.rotation, Mathf.Infinity))
+        // {
+        //     if (hit.transform.CompareTag("Monster"))
+        //         DamageControl(hit.transform.gameObject);
+        // }
     }
     private void DamageControl(GameObject attackTarget)
     {
