@@ -8,7 +8,7 @@ public class AttackBullet : MonoBehaviour
     private Vector3 velocity;
     private Collider[] enemys;
     private Collider attackTarget;
-    private float smoothTime = 1f;
+    private float smoothTime = 0.2f;
     public LayerMask whatIsMonster;
     private void Start()
     {
@@ -40,7 +40,11 @@ public class AttackBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Monster"))
-            gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            UnitMove attackedTarget = other.GetComponent<UnitMove>();
+            attackedTarget.HP -= 20;
+            Destroy(gameObject);
+        }
     }
 }
