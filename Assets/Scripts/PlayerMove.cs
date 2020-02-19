@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public abstract class PlayerMove : UnitMove
 {
+    public GameObject attackBullet;
     public Camera followCam;
     private float turnSmoothVelocity;
     private Vector3 lastMovingVelocity;
@@ -90,14 +91,8 @@ public abstract class PlayerMove : UnitMove
 
     protected virtual void Attack()
     {
-        // Debug.Log("Attack!");
-        // Gizmos.color = Color.red;
-        // RaycastHit hit;
-        // if (Physics.BoxCast(transform.position, transform.lossyScale * 10 ,transform.forward, out hit, transform.rotation, Mathf.Infinity))
-        // {
-        //     if (hit.transform.CompareTag("Monster"))
-        //         DamageControl(hit.transform.gameObject);
-        // }
+        Vector3 bulletSummonPos = new Vector3(transform.position.x,transform.position.y+5f,transform.position.z);
+        Instantiate(attackBullet, bulletSummonPos, Quaternion.identity);
     }
     private void DamageControl(GameObject attackTarget)
     {
