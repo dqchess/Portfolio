@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
 {
     public Image[] life;
     public TextMeshProUGUI gameOverText;
+    public Button gameOverButton;
     private GameObject player;
     private int lifeIndex;
     private int deathCounter;
@@ -28,6 +29,7 @@ public class UI : MonoBehaviour
     private void Start()
     {
         gameOverText.alpha = 0.0f;
+        gameOverButton.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -68,6 +70,8 @@ public class UI : MonoBehaviour
             yield return null;
         }
         player.gameObject.SetActive(false);
+        gameOverButton.gameObject.SetActive(true);
+        Cursor.visible = true;
     }
 
     private string GameOverTextBuilder()

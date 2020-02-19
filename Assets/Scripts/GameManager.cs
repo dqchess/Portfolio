@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Numerics;
-using JetBrains.Annotations;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -81,6 +76,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update() => DontDestroyOnLoad(gameObject);
     public void InvicibilityOFF() => invicibility = false;
-
+    public void TryAgain() => SceneManager.LoadScene("Stage");
 
 }

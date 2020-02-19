@@ -35,7 +35,6 @@ public abstract class PlayerMove : UnitMove
             //     MoveAniStop();
             transform.Translate(Vector3.forward * Constants.GetNumber.moveSpeed * Time.deltaTime,Space.Self);
             MoveAniPlay();
-
         }
         else if(!IsInBoundary())
         {
