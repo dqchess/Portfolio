@@ -74,6 +74,7 @@ public abstract class PlayerMove : UnitMove
 
     protected virtual void FixedUpdate()
     {
+        
         attackTimer += Time.deltaTime;
         if (attackTimer > Constants.GetNumber.attackDelay)
         {
@@ -86,7 +87,23 @@ public abstract class PlayerMove : UnitMove
         transform.position = Vector3.zero;
     }
     public abstract void Die();
-    public abstract void Attack();
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Attack!");
+        RaycastHit hit;
+        if (Physics.BoxCast(transform.position, transform.lossyScale * 10 ,transform.forward, out hit, transform.rotation, Mathf.Infinity))
+        {
+            if (hit.transform.CompareTag("Monster"))
+                DamageControl(hit.transform.gameObject);
+        }
+    }
+    private void DamageControl(GameObject attackTarget)
+    {
+        Debug.Log(attackTarget.name + " HIT!");
+        UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
+        damagedTarget.HP -= Constants.GetNumber.ATK;
+    }
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
     

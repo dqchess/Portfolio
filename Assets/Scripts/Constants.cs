@@ -10,6 +10,7 @@ public class Constants
     public readonly float downLimit = -25f;
     public readonly float maxHP = 100f;
     public readonly float invicibilityOffTime = 1.5f;
+    public readonly float ATK = 150f;
     public readonly float moveSpeed = 5f;
     public readonly float attackDelay = 1f;
     private Constants(){}

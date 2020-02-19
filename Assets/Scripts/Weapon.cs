@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    //필요 없음.
+//필요없음 
+    
 }

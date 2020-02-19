@@ -11,14 +11,19 @@ public class SwordmanMove : PlayerMove
     {
         attackRange = 2;
         attackDelay = 0.25f;
-        ATK = 45;
     }
     protected override void Awake()
     {        
         animator = GetComponent<Animator>();
     }
 
-    public override void Attack() => animator.SetTrigger(attackAniID);
+    protected override void Attack()
+    {
+        animator.SetTrigger(attackAniID);
+        base.Attack();
+    }
+
+
     public override void Die()
     {
         animator.SetTrigger(dieAniID);

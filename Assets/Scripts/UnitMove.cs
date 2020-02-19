@@ -11,7 +11,6 @@ public abstract class UnitMove : MonoBehaviour
     protected float attackDelay;
     protected float timer;
     public float HP;
-    protected float ATK;
     protected Vector3 nowPos;
     protected virtual void Awake()
     {
