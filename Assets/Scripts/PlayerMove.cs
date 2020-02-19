@@ -12,6 +12,7 @@ public abstract class PlayerMove : UnitMove
     private Vector3 lastMovingVelocity;
     private float turnSmoothTime;
     private Vector3 moveHorizontal;
+    private float attackTimer;
     private Vector3 moveVertical;
     private bool invicibility;
     private bool canMove = true;
@@ -19,6 +20,7 @@ public abstract class PlayerMove : UnitMove
     private void Start()
     {
         followCam.enabled = true;
+        attackTimer = 0f;
     }
     private void Move()
     {
@@ -68,17 +70,24 @@ public abstract class PlayerMove : UnitMove
         Move();
         if(!Input.GetMouseButton(1))
             Rotate();
-        if (Input.GetKey(KeyCode.Space))
-            Attack();
     }
-    
+
+    protected virtual void FixedUpdate()
+    {
+        attackTimer += Time.deltaTime;
+        if (attackTimer > Constants.GetNumber.attackDelay)
+        {
+            Attack();
+            attackTimer = 0f;
+        }
+    }
     public void SummonInCenter()
     {
         transform.position = Vector3.zero;
     }
     public abstract void Die();
+    public abstract void Attack();
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
-    protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
-
+    
 }

@@ -11,6 +11,7 @@ public class Constants
     public readonly float maxHP = 100f;
     public readonly float invicibilityOffTime = 1.5f;
     public readonly float moveSpeed = 5f;
+    public readonly float attackDelay = 1f;
     private Constants(){}
     private static Constants instance;
 

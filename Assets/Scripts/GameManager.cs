@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public float playTime;
     public DirectionalLight light;
-    public bool playerPressedATK;
     public bool invicibility;
     public int numOfMonster;
     private GameObject[] monsters;
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        playerPressedATK = false;
         invicibility = false;
         playTime = 0f;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
