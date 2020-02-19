@@ -8,7 +8,6 @@ using UnityEngine.AI;
 public abstract class PlayerMove : UnitMove
 {
     public Camera followCam;
-    public Camera deadCam;
     private float turnSmoothVelocity;
     private Vector3 lastMovingVelocity;
     private float turnSmoothTime;
@@ -20,7 +19,6 @@ public abstract class PlayerMove : UnitMove
     private void Start()
     {
         followCam.enabled = true;
-        deadCam.enabled = false;
     }
     private void Move()
     {
@@ -72,11 +70,6 @@ public abstract class PlayerMove : UnitMove
             Rotate();
         if (Input.GetKey(KeyCode.Space))
             Attack();
-        if (!canMove)
-        {
-            followCam.enabled = false;
-            deadCam.enabled = true;
-        }
     }
     
     public void SummonInCenter()
@@ -85,6 +78,7 @@ public abstract class PlayerMove : UnitMove
     }
     public abstract void Die();
     public void CantMovePlayer() => canMove = false;
+    public void CorpseDisappear() => gameObject.SetActive(false);
     protected virtual void Attack() => GameManager.instance.playerPressedATK = true;
 
 }

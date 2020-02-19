@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,7 @@ public class UI : MonoBehaviour
     public UnityEvent playerDie; 
     private void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         lifeIndex = 0;
         deathCounter = 0;
         gameOverTextShowNowPlaying = false;
@@ -54,6 +56,7 @@ public class UI : MonoBehaviour
     IEnumerator GameOverTextFadeIn()
     {
         gameOverTextShowNowPlaying = true;
+        gameOverText.text = GameOverTextBuilder();
         Color gameOverTextColor = gameOverText.color;
         time = 0f;
 
@@ -64,5 +67,15 @@ public class UI : MonoBehaviour
             gameOverText.color = gameOverTextColor;
             yield return null;
         }
+        player.gameObject.SetActive(false);
+    }
+
+    private string GameOverTextBuilder()
+    {
+        StringBuilder GameOverTextBuilder = new StringBuilder();
+        string playTime = GameManager.instance.playTime.ToString("00.00").Replace(".", ":");
+        GameOverTextBuilder.Append("Game Over\n");
+        GameOverTextBuilder.Append(playTime);
+        return GameOverTextBuilder.ToString();
     }
 }

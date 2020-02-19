@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ using Vector3 = UnityEngine.Vector3;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public float playTime;
     public DirectionalLight light;
     public bool playerPressedATK;
     public bool invicibility;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         playerPressedATK = false;
         invicibility = false;
+        playTime = 0f;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         deadCanvas = GameObject.FindGameObjectWithTag("deadCanvas");
         monsterHPContainer = new List<UnitMove>();
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         ExitControl();
         MonsterNumControl();
+        playTime += Time.deltaTime;
     }
     private void ExitControl()
     {
