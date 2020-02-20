@@ -10,7 +10,7 @@ public class UI : MonoBehaviour
 {
     public Image[] life;
     public TextMeshProUGUI gameOverText;
-    public Button gameOverButton;
+    public Button retryButton;
     public Text stageText;
     private GameObject player;
     private int lifeIndex;
@@ -31,13 +31,17 @@ public class UI : MonoBehaviour
     private void Start()
     {
         gameOverText.alpha = 0.0f;
-        gameOverButton.gameObject.SetActive(false);
+        retryButton.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
     {
-        if(deathCounter == life.Length)
+        if (deathCounter == life.Length)
+        {
             playerDie.Invoke();
+            Cursor.visible = true;
+        }
+
         stageText.text = stageLevelTextBuilder();
     }
     public void lifeDelete()
@@ -73,8 +77,7 @@ public class UI : MonoBehaviour
             yield return null;
         }
         player.gameObject.SetActive(false);
-        gameOverButton.gameObject.SetActive(true);
-        Cursor.visible = true;
+        retryButton.gameObject.SetActive(true);
     }
 
     private string GameOverTextBuilder()

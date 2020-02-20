@@ -21,14 +21,18 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else if(instance != this)
+            Destroy(gameObject);
+        
         invicibility = false;
         playTime = 0f;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         deadCanvas = GameObject.FindGameObjectWithTag("deadCanvas");
         monsterHPContainer = new List<UnitMove>();
         stageLevel = 1;
-        
+        Cursor.visible = false;
     }
     private void Start()
     {
@@ -40,10 +44,10 @@ public class GameManager : MonoBehaviour
                 0, Random.Range(Constants.GetNumber.downLimit, Constants.GetNumber.upLimit));
         }
         numOfMonster = monsters.Length;
-        Cursor.visible = false;
     }
     private void FixedUpdate()
     {
+
         ExitControl();
         MonsterNumControl();
         StageControl();
@@ -83,14 +87,14 @@ public class GameManager : MonoBehaviour
             stageTimer = 0f;
         }
     }
-
     public void InvicibilityON()
     {
         invicibility = true;
         Invoke("InvicibilityOFF", Constants.GetNumber.invicibilityOffTime);
     }
-    private void Update() => DontDestroyOnLoad(gameObject);
+    public void LoadStageScene()
+    {
+        SceneManager.LoadScene("Stage");
+    }
     public void InvicibilityOFF() => invicibility = false;
-    public void TryAgain() => SceneManager.LoadScene("Stage");
-
 }
