@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public float playTime;
+    public float stageTimer;
+    public float stageLevel;
     public DirectionalLight light;
     public bool invicibility;
     public int numOfMonster;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         deadCanvas = GameObject.FindGameObjectWithTag("deadCanvas");
         monsterHPContainer = new List<UnitMove>();
+        stageLevel = 1;
         
     }
     private void Start()
@@ -43,7 +46,9 @@ public class GameManager : MonoBehaviour
     {
         ExitControl();
         MonsterNumControl();
+        StageControl();
         playTime += Time.deltaTime;
+
     }
     private void ExitControl()
     {
@@ -69,6 +74,16 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    private void StageControl()
+    {
+        stageTimer += Time.deltaTime;
+        if (stageTimer > 50f)
+        {
+            stageLevel++;
+            stageTimer = 0f;
+        }
+    }
+
     public void InvicibilityON()
     {
         invicibility = true;

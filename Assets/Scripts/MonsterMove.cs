@@ -32,6 +32,7 @@ public abstract class MonsterMove : UnitMove
     {
         if (monsterMoveTimer > startMoveTime)
         {
+            navMeshAgent.speed = Constants.GetNumber.monsterBaseSpeed + GameManager.instance.stageLevel;
             navMeshAgent.SetDestination(new Vector3(
                 Random.Range(Constants.GetNumber.leftLimit, Constants.GetNumber.rightLimit),
                 0, 
@@ -39,5 +40,4 @@ public abstract class MonsterMove : UnitMove
             monsterMoveTimer = 0f;
         }
     }
-
 }

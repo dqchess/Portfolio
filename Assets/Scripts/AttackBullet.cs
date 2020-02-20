@@ -8,7 +8,8 @@ public class AttackBullet : MonoBehaviour
     private Vector3 velocity;
     private Collider[] enemys;
     private Collider attackTarget;
-    private float smoothTime = 0.2f;
+    private float destoryTimer;
+    private float smoothTime;
     public LayerMask whatIsMonster;
     private void Start()
     {
@@ -18,8 +19,14 @@ public class AttackBullet : MonoBehaviour
     }
     private void Update()
     {
+        smoothTime = SpeedControl();
         transform.position =
             Vector3.SmoothDamp(transform.position, attackTarget.transform.position, ref velocity, smoothTime);
+    }
+
+    private void FixedUpdate()
+    {
+        CantFindEnemyThenDestroy();
     }
 
     private Collider FindNearestEnemy()
@@ -37,13 +44,24 @@ public class AttackBullet : MonoBehaviour
 
         return nearestEnemy;
     }
-
+    private float SpeedControl()
+    {
+        float timeForSmoothDamp = Constants.GetNumber.baseBulletSpeed - (GameManager.instance.stageLevel * 0.0005f);
+        return timeForSmoothDamp;
+    }
+    private void CantFindEnemyThenDestroy()
+    {
+        destoryTimer += Time.deltaTime;
+        if (destoryTimer > 1f)
+            Destroy(gameObject);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Monster"))
         {
+            Debug.Log("Bullet speed is " + SpeedControl().ToString());
             UnitMove attackedTarget = other.GetComponent<UnitMove>();
-            attackedTarget.HP -= 20;
+            attackedTarget.HP -= Constants.GetNumber.baseATK;
             Destroy(gameObject);
         }
     }

@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
     public Image[] life;
     public TextMeshProUGUI gameOverText;
     public Button gameOverButton;
+    public Text stageText;
     private GameObject player;
     private int lifeIndex;
     private int deathCounter;
@@ -24,6 +25,7 @@ public class UI : MonoBehaviour
         lifeIndex = 0;
         deathCounter = 0;
         gameOverTextShowNowPlaying = false;
+   
     }
 
     private void Start()
@@ -36,6 +38,7 @@ public class UI : MonoBehaviour
     {
         if(deathCounter == life.Length)
             playerDie.Invoke();
+        stageText.text = stageLevelTextBuilder();
     }
     public void lifeDelete()
     {
@@ -81,5 +84,15 @@ public class UI : MonoBehaviour
         GameOverTextBuilder.Append("Game Over\n");
         GameOverTextBuilder.Append(playTime);
         return GameOverTextBuilder.ToString();
+    }
+
+    private string stageLevelTextBuilder()
+    {
+        StringBuilder stageLevelTextBuilder = new StringBuilder();
+        string stageLevel = GameManager.instance.stageLevel.ToString();
+
+        stageLevelTextBuilder.Append("STAGE ");
+        stageLevelTextBuilder.Append(stageLevel);
+        return stageLevelTextBuilder.ToString();
     }
 }

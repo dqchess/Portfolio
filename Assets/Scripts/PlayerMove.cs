@@ -86,12 +86,6 @@ public abstract class PlayerMove : UnitMove
         Vector3 bulletSummonPos = new Vector3(transform.position.x,transform.position.y+5f,transform.position.z);
         Instantiate(attackBullet, bulletSummonPos, Quaternion.identity);
     }
-    private void DamageControl(GameObject attackTarget)
-    {
-        Debug.Log(attackTarget.name + " HIT!");
-        UnitMove damagedTarget = attackTarget.GetComponent<UnitMove>();
-        damagedTarget.HP -= Constants.GetNumber.ATK;
-    }
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
     public void SummonInCenter() => transform.position = Vector3.zero;
