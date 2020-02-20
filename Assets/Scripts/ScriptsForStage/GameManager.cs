@@ -47,12 +47,10 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
         ExitControl();
         MonsterNumControl();
         StageControl();
         playTime += Time.deltaTime;
-
     }
     private void ExitControl()
     {

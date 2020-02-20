@@ -27,12 +27,6 @@ public abstract class PlayerMove : UnitMove
     {
         if (IsInBoundary() && canMove)
         {
-            // transform.Translate(moveHorizontal, Space.Self);
-            // transform.Translate(moveVertical, Space.Self);
-            // if ((Math.Abs(Input.GetAxis("Horizontal")) > 0) || Math.Abs(Input.GetAxis("Vertical")) > 0)
-            //     MoveAniPlay();
-            // else
-            //     MoveAniStop();
             transform.Translate(Vector3.forward * Constants.GetNumber.moveSpeed * Time.deltaTime,Space.Self);
             MoveAniPlay();
         }
@@ -66,8 +60,6 @@ public abstract class PlayerMove : UnitMove
     protected override void Update()
     {
         base.Update();
-        // moveHorizontal = Vector3.right * (Constants.GetNumber.moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
-        // moveVertical = Vector3.forward * (Constants.GetNumber.moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
         Move();
         if(!Input.GetMouseButton(1))
             Rotate();
