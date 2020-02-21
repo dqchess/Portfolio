@@ -75,12 +75,17 @@ public abstract class PlayerMove : UnitMove
     }
     protected virtual void Attack()
     {
-        for (int i = 0; i < GameManager.instance.stageLevel; i++)
+        float bulletCount = GameManager.instance.stageLevel;
+        if (bulletCount >= 10)
+            bulletCount = 10;
+        
+        for (int i = 0; i < bulletCount; i++)
         {
             Vector3 bulletSummonPos =
-                new Vector3(transform.position.x + i, transform.position.y + 2f, transform.position.z);
+                new Vector3(transform.position.x + i * 3f, transform.position.y + i * 3f, transform.position.z + i * 3f);
             Instantiate(attackBullet, bulletSummonPos, Quaternion.identity);
         }
+
     }
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
