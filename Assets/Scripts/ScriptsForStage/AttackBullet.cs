@@ -59,7 +59,6 @@ public class AttackBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Monster"))
         {
-            Debug.Log("Bullet speed is " + SpeedControl().ToString());
             UnitMove attackedTarget = other.GetComponent<UnitMove>();
             attackedTarget.HP -= Constants.GetNumber.baseATK;
             Destroy(gameObject);

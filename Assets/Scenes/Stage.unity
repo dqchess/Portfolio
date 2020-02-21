@@ -530,7 +530,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48504174}
-  m_LocalRotation: {x: -0.07686123, y: 0.44722432, z: 0.038610518, w: 0.89027643}
+  m_LocalRotation: {x: -0.07957546, y: 0.37821048, z: 0.032652207, w: 0.92171496}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3015,7 +3015,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336044814}
-  m_LocalRotation: {x: 0.22325175, y: 0.43465233, z: -0.11214638, w: 0.865251}
+  m_LocalRotation: {x: 0.23113492, y: 0.36757854, z: -0.09484014, w: 0.89580584}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3797,7 +3797,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451663555}
-  m_LocalRotation: {x: -0.04046719, y: 0.25475934, z: 0.010671398, w: 0.9660985}
+  m_LocalRotation: {x: -0.040804513, y: 0.22196712, z: 0.009297845, w: 0.97415566}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7730,7 +7730,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062207610}
-  m_LocalRotation: {x: -0.04151852, y: 0.12562251, z: 0.005261992, w: 0.991195}
+  m_LocalRotation: {x: -0.04167246, y: 0.09205577, z: 0.0038559563, w: 0.994874}
   m_LocalPosition: {x: 12.53, y: 5.5, z: -13.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9728,7 +9728,7 @@ MonoBehaviour:
   - {fileID: 537303459}
   - {fileID: 89797370}
   - {fileID: 1728606113}
-  gameOverText: {fileID: 1523422267}
+  UIText: {fileID: 1523422267}
   retryButton: {fileID: 447000107}
   stageText: {fileID: 1578608076}
   FadeTime: 2
@@ -10043,7 +10043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: PUT TEXT HERE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 11ec1684ac90045eea73bb0702719b40, type: 2}
   m_sharedMaterial: {fileID: 5961750519122688758, guid: 11ec1684ac90045eea73bb0702719b40,
@@ -10113,12 +10113,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 324.97534, w: 0}
   m_textInfo:
     textComponent: {fileID: 1523422267}
-    characterCount: 9
+    characterCount: 13
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 2
+    wordCount: 3
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 2
   m_isUsingLegacyAnimationComponent: 0

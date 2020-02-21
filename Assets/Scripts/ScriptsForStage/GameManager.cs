@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Experimental.GlobalIllumination;
 using Cursor = UnityEngine.Cursor;
 using Random = UnityEngine.Random;
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] monsters;
     private GameObject deadCanvas;
     private List<UnitMove> monsterHPContainer;
-    
+
     private void Awake()
     {
         if (instance == null)

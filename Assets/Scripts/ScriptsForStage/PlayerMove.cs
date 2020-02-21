@@ -75,8 +75,12 @@ public abstract class PlayerMove : UnitMove
     }
     protected virtual void Attack()
     {
-        Vector3 bulletSummonPos = new Vector3(transform.position.x,transform.position.y+5f,transform.position.z);
-        Instantiate(attackBullet, bulletSummonPos, Quaternion.identity);
+        for (int i = 0; i < GameManager.instance.stageLevel; i++)
+        {
+            Vector3 bulletSummonPos =
+                new Vector3(transform.position.x + i, transform.position.y + 2f, transform.position.z);
+            Instantiate(attackBullet, bulletSummonPos, Quaternion.identity);
+        }
     }
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);

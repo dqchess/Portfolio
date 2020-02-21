@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public Image[] life;
-    public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI UIText;
     public Button retryButton;
     public Text stageText;
     private GameObject player;
@@ -17,23 +16,24 @@ public class UI : MonoBehaviour
     private int deathCounter;
     private float time;
     private bool gameOverTextShowNowPlaying;
+    private bool tutorialTextShowNowPlaying;
     public float FadeTime = 4f;
-    public UnityEvent playerDie; 
+    public UnityEvent playerDie;
+    
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
         lifeIndex = 0;
         deathCounter = 0;
+        tutorialTextShowNowPlaying = false;
         gameOverTextShowNowPlaying = false;
-   
     }
-
     private void Start()
     {
-        gameOverText.alpha = 0.0f;
+        TutorialTextShow();
         retryButton.gameObject.SetActive(false);
     }
-
+    
     private void FixedUpdate()
     {
         if (deathCounter == life.Length)
@@ -41,7 +41,6 @@ public class UI : MonoBehaviour
             playerDie.Invoke();
             Cursor.visible = true;
         }
-
         stageText.text = stageLevelTextBuilder();
     }
     public void lifeDelete()
@@ -55,31 +54,51 @@ public class UI : MonoBehaviour
             deathCounter++;
         }
     }
-
     public void GameOverTextShow()
     {
         if (!gameOverTextShowNowPlaying)
-            StartCoroutine("GameOverTextFadeIn");
+        {
+            gameOverTextShowNowPlaying = true;
+            StartCoroutine(TextFadeIn(GameOverTextBuilder()));
+            player.gameObject.SetActive(false);
+            retryButton.gameObject.SetActive(true);
+        }
     }
 
-    IEnumerator GameOverTextFadeIn()
+    public void TutorialTextShow()
     {
-        gameOverTextShowNowPlaying = true;
-        gameOverText.text = GameOverTextBuilder();
-        Color gameOverTextColor = gameOverText.color;
+        if (!tutorialTextShowNowPlaying)
+        {
+            tutorialTextShowNowPlaying = true;
+            UIText.color = Color.gray;
+            UIText.alpha = 1f;
+            StartCoroutine(TextFadeIn(TutorialTextBuilder()));
+        }
+    }
+    private void TutorialTextOff()
+    {
+        Time.timeScale = 1;
+        UIText.color = Color.red;
+        UIText.alpha = 0;
+        tutorialTextShowNowPlaying = false;
+    }
+    IEnumerator TextFadeIn(string textToShow)
+    {
+        tutorialTextShowNowPlaying = true;
+        UIText.text = textToShow;
+        UIText.alpha = 0f;
+        Color TextColor = UIText.color;
         time = 0f;
-
-        while (gameOverTextColor.a < 1f)
+        while (TextColor.a < 1f)
         {
             time += Time.deltaTime / FadeTime;
-            gameOverTextColor.a = Mathf.Lerp(0f, 1f, time);
-            gameOverText.color = gameOverTextColor;
+            TextColor.a = Mathf.Lerp(0f, 1f, time);
+            UIText.color = TextColor;
             yield return null;
         }
-        player.gameObject.SetActive(false);
-        retryButton.gameObject.SetActive(true);
-    }
+        Invoke("TutorialTextOff", 1f);
 
+    }
     private string GameOverTextBuilder()
     {
         StringBuilder GameOverTextBuilder = new StringBuilder();
@@ -88,7 +107,6 @@ public class UI : MonoBehaviour
         GameOverTextBuilder.Append(playTime);
         return GameOverTextBuilder.ToString();
     }
-
     private string stageLevelTextBuilder()
     {
         StringBuilder stageLevelTextBuilder = new StringBuilder();
@@ -97,5 +115,12 @@ public class UI : MonoBehaviour
         stageLevelTextBuilder.Append("STAGE ");
         stageLevelTextBuilder.Append(stageLevel);
         return stageLevelTextBuilder.ToString();
+    }
+    private string TutorialTextBuilder()
+    {
+        StringBuilder tutorialText = new StringBuilder();
+        tutorialText.Append("dir: drag\n");
+        tutorialText.Append("attack: auto");
+        return tutorialText.ToString();
     }
 }
