@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
+    #region variables
     public Image[] life;
     public TextMeshProUGUI UIText;
     public Button retryButton;
@@ -19,7 +20,8 @@ public class UI : MonoBehaviour
     private bool tutorialTextShowNowPlaying;
     public float FadeTime = 4f;
     public UnityEvent playerDie;
-    
+    #endregion
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -54,6 +56,8 @@ public class UI : MonoBehaviour
             deathCounter++;
         }
     }
+
+    #region showing text
     public void GameOverTextShow()
     {
         if (!gameOverTextShowNowPlaying)
@@ -82,6 +86,7 @@ public class UI : MonoBehaviour
         UIText.alpha = 0;
         tutorialTextShowNowPlaying = false;
     }
+
     IEnumerator TextFadeIn(string textToShow)
     {
         tutorialTextShowNowPlaying = true;
@@ -97,8 +102,10 @@ public class UI : MonoBehaviour
             yield return null;
         }
         Invoke("TutorialTextOff", 1f);
-
     }
+    #endregion
+
+    #region build Text
     private string GameOverTextBuilder()
     {
         StringBuilder GameOverTextBuilder = new StringBuilder();
@@ -123,4 +130,5 @@ public class UI : MonoBehaviour
         tutorialText.Append("attack: auto");
         return tutorialText.ToString();
     }
+    #endregion
 }

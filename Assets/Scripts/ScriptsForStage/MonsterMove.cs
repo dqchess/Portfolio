@@ -5,10 +5,13 @@ using UnityEngine.EventSystems;
 
 public abstract class MonsterMove : UnitMove
 {
+    #region variables
     protected float monsterMoveTimer = 0;
     protected float startMoveTime;
     public UnityEvent playerHit;
     private void OnCollisionEnter(Collision other)
+    #endregion
+
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -22,6 +25,8 @@ public abstract class MonsterMove : UnitMove
         if (this.HP <= Constants.GetNumber.dieHP)
             GameManager.instance.numOfMonster -= 1;
     }
+
+    #region randomly move per monster move timer
     protected void FixedUpdate()
     {
         monsterMoveTimer += Time.deltaTime;
@@ -40,4 +45,5 @@ public abstract class MonsterMove : UnitMove
             monsterMoveTimer = 0f;
         }
     }
+    #endregion
 }

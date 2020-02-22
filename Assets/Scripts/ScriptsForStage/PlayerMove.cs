@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public abstract class PlayerMove : UnitMove
 {
+    #region variables
     public GameObject attackBullet;
     public Camera followCam;
     private float turnSmoothVelocity;
@@ -17,12 +18,27 @@ public abstract class PlayerMove : UnitMove
     private Vector3 moveVertical;
     private bool invicibility;
     private bool canMove = true;
+    #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+        invicibility = false;
+    }
 
     private void Start()
     {
         followCam.enabled = true;
         attackTimer = 0f;
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        Move();
+    }
+
+    #region move in boundary
     private void Move()
     {
         if (IsInBoundary() && canMove)
@@ -36,34 +52,19 @@ public abstract class PlayerMove : UnitMove
             SummonInCenter();
         }
     }
-    private void Rotate()
-    {
-        float targetRotation = followCam.transform.eulerAngles.y;
-        targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity,
-            turnSmoothTime);
-        transform.eulerAngles = Vector3.up * targetRotation;
-    }
+
     private bool IsInBoundary()
     {
         if ((transform.position.x < Constants.GetNumber.rightLimit)
             && (transform.position.x > Constants.GetNumber.leftLimit)
-            && (transform.position.z < Constants.GetNumber.upLimit) 
+            && (transform.position.z < Constants.GetNumber.upLimit)
             && (transform.position.z > Constants.GetNumber.downLimit))
             return true;
         return false;
     }
-    protected override void Awake()
-    {
-        base.Awake();
-        invicibility = false;
-    }
-    protected override void Update()
-    {
-        base.Update();
-        Move();
-        if(!Input.GetMouseButton(1))
-            Rotate();
-    }
+    #endregion
+
+    #region attack per frame
     protected virtual void FixedUpdate()
     {
         attackTimer += Time.deltaTime;
@@ -89,6 +90,8 @@ public abstract class PlayerMove : UnitMove
         }
 
     }
+    #endregion
+
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
     public void SummonInCenter() => transform.position = Vector3.zero;

@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class AttackBullet : MonoBehaviour
 {
+    #region variables
     private Vector3 velocity;
     private Collider[] enemys;
     private Collider attackTarget;
     private float destoryTimer;
     private float smoothTime;
     public LayerMask whatIsMonster;
+    #endregion
+
+    #region when summoned, find nearest enemy and follow
     private void Start()
     {
         enemys = Physics.OverlapSphere(transform.position, Mathf.Infinity, whatIsMonster);
@@ -22,11 +26,6 @@ public class AttackBullet : MonoBehaviour
         smoothTime = SpeedControl();
         transform.position =
             Vector3.SmoothDamp(transform.position, attackTarget.transform.position, ref velocity, smoothTime);
-    }
-
-    private void FixedUpdate()
-    {
-        CantFindEnemyThenDestroy();
     }
 
     private Collider FindNearestEnemy()
@@ -49,12 +48,21 @@ public class AttackBullet : MonoBehaviour
         float timeForSmoothDamp = Constants.GetNumber.baseBulletSpeed - (GameManager.instance.stageLevel * 0.0005f);
         return timeForSmoothDamp;
     }
+    #endregion
+
+    #region if can't find enemy in 1 second, then destroy self
+    private void FixedUpdate()
+    {
+        CantFindEnemyThenDestroy();
+    }
     private void CantFindEnemyThenDestroy()
     {
         destoryTimer += Time.deltaTime;
         if (destoryTimer > 1f)
             Destroy(gameObject);
     }
+    #endregion
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Monster"))

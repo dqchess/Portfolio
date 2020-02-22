@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region variables
     public static GameManager instance;
     public float playTime;
     public float stageTimer;
@@ -19,7 +20,9 @@ public class GameManager : MonoBehaviour
     private GameObject[] monsters;
     private GameObject deadCanvas;
     private List<UnitMove> monsterHPContainer;
+    #endregion
 
+    #region when stage loaded, activate monsters
     private void Awake()
     {
         stageLevel = 0;
@@ -47,26 +50,12 @@ public class GameManager : MonoBehaviour
         }
         numOfMonster = monsters.Length;
     }
-    private void FixedUpdate()
-    {
-        ExitControl();
-        MonsterNumControl();
-        StageControl();
-        playTime += Time.deltaTime;
-    }
-    private void ExitControl()
-    {
-        //윈도우
-        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKey(KeyCode.F4))
-            Application.Quit();
-        //맥
+    #endregion
 
-        if((Input.GetKey(KeyCode.LeftApple) || Input.GetKey(KeyCode.RightApple)) && Input.GetKey(KeyCode.Q))
-            Application.Quit();
-    }
+    #region in stage, control num of monsters and stage level
     private void MonsterNumControl()
     {
-        if (numOfMonster < monsters.Length/2)
+        if (numOfMonster < monsters.Length / 2)
         {
             for (int i = 0; i < monsters.Length; i++)
             {
@@ -88,14 +77,39 @@ public class GameManager : MonoBehaviour
             stageTimer = 0f;
         }
     }
+    #endregion
+
+    #region when player hit, activate invicibility
     public void InvicibilityON()
     {
         invicibility = true;
         Invoke("InvicibilityOff", Constants.GetNumber.invicibilityOffTime);
     }
+
+    public void InvicibilityOff() => invicibility = false;
+    #endregion
+
+    private void FixedUpdate()
+    {
+        ExitControl();
+        MonsterNumControl();
+        StageControl();
+        playTime += Time.deltaTime;
+    }
+    private void ExitControl()
+    {
+        //윈도우
+        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKey(KeyCode.F4))
+            Application.Quit();
+        //맥
+
+        if((Input.GetKey(KeyCode.LeftApple) || Input.GetKey(KeyCode.RightApple)) && Input.GetKey(KeyCode.Q))
+            Application.Quit();
+    }
+
+    
     public void LoadStageScene()
     {
         SceneManager.LoadScene("Stage");
     }
-    public void InvicibilityOff() => invicibility = false;
 }

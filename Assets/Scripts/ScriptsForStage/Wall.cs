@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    #region variables
     public GameObject fireWall;
     private List<GameObject> fires;
     private bool wallMoved;
+    #endregion
 
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class Wall : MonoBehaviour
 
     private void WallMove()
     {
+        #region each wall move by 2.5
         if (gameObject.name.Contains("left"))
         {
             transform.position = new Vector3(transform.position.x + 2.5f, transform.position.y, transform.position.z);
@@ -53,12 +56,14 @@ public class Wall : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 2.5f);
             Constants.GetNumber.downLimit += 2.5f;
         }
+        #endregion
         FireWallSummon();
         wallMoved = true;
     }
 
     private void FireWallSummon()
     {
+        #region summon 100 fires
         if (gameObject.name.Contains("left") || gameObject.name.Contains("right"))
         {
             for (int i = -50; i < 50; i++)
@@ -79,6 +84,7 @@ public class Wall : MonoBehaviour
                 fires.Add(fireInstance);
             }
         }
+        #endregion
     }
     public void DisappearWhenGameOver() => gameObject.SetActive(false);
 }

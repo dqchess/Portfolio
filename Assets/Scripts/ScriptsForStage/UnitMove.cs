@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public abstract class UnitMove : MonoBehaviour
 {
+    #region variables
     protected NavMeshAgent navMeshAgent;
     protected int attackRange;
     protected Animator animator;
@@ -12,6 +13,7 @@ public abstract class UnitMove : MonoBehaviour
     protected float timer;
     public float HP;
     protected Vector3 nowPos;
+    #endregion
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();

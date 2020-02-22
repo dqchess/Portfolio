@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 public class SwordmanMove : PlayerMove
 {
+    #region variables
     private static readonly int attackAniID = Animator.StringToHash("isAttacking");
     private static readonly int moveAniID = Animator.StringToHash("isMoving");
     private static readonly int dieAniID = Animator.StringToHash("dieAniTrigger");
+    #endregion
+
     private void Start()
     {
         attackRange = 2;

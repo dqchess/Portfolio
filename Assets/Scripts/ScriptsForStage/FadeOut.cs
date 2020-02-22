@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class FadeOut : MonoBehaviour
 {
-    
+
+    #region variables
     public float FadeTime = 2f; // Fade효과 재생시간
     Image fadeImg;
     float start;
     float end;
     float time = 0f;
     bool isPlaying = false;
+    #endregion
 
     void Awake()
     {
