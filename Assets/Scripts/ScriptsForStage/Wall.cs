@@ -5,8 +5,59 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     public GameObject fireWall;
+    private List<GameObject> fires;
+    private bool wallMoved;
 
     private void Awake()
+    {
+        fires = new List<GameObject>();
+        FireWallSummon();
+        wallMoved = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.instance.stageLevel % 5 == 0)
+        {
+            if (!wallMoved)
+            {
+                for (int i = 0; i < fires.Count; i++)
+                    Destroy(fires[i]);
+                fires.Clear();
+                WallMove();
+            }
+        }
+        else
+            wallMoved = false;
+    }
+
+    private void WallMove()
+    {
+        if (gameObject.name.Contains("left"))
+        {
+            transform.position = new Vector3(transform.position.x + 2.5f, transform.position.y, transform.position.z);
+            Constants.GetNumber.leftLimit += 2.5f;
+        }
+        if (gameObject.name.Contains("right"))
+        {
+            transform.position = new Vector3(transform.position.x - 2.5f, transform.position.y, transform.position.z);
+            Constants.GetNumber.rightLimit -= 2.5f;
+        }
+        if (gameObject.name.Contains("up"))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 2.5f);
+            Constants.GetNumber.upLimit -= 2.5f;
+        }
+        if (gameObject.name.Contains("down"))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 2.5f);
+            Constants.GetNumber.downLimit += 2.5f;
+        }
+        FireWallSummon();
+        wallMoved = true;
+    }
+
+    private void FireWallSummon()
     {
         if (gameObject.name.Contains("left") || gameObject.name.Contains("right"))
         {
@@ -14,7 +65,8 @@ public class Wall : MonoBehaviour
             {
                 Vector3 fireSummonPos =
                     new Vector3(transform.position.x, transform.position.y, transform.position.z + i);
-                Instantiate(fireWall, fireSummonPos, Quaternion.identity);
+                GameObject fireInstance = Instantiate(fireWall, fireSummonPos, Quaternion.identity);
+                fires.Add(fireInstance);
             }
         }
         if (gameObject.name.Contains("up") || gameObject.name.Contains("down"))
@@ -23,7 +75,8 @@ public class Wall : MonoBehaviour
             {
                 Vector3 fireSummonPos =
                     new Vector3(transform.position.x + i, transform.position.y, transform.position.z);
-                Instantiate(fireWall, fireSummonPos, Quaternion.identity);
+                GameObject fireInstance = Instantiate(fireWall, fireSummonPos, Quaternion.identity);
+                fires.Add(fireInstance);
             }
         }
     }

@@ -77,8 +77,10 @@ public abstract class PlayerMove : UnitMove
     {
         float bulletCount = GameManager.instance.stageLevel;
         if (bulletCount >= 10)
+        {
             bulletCount = 10;
-        
+        }
+
         for (int i = 0; i < bulletCount; i++)
         {
             Vector3 bulletSummonPos =

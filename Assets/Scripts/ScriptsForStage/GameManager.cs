@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        stageLevel = 0;
         if (instance == null)
             instance = this;
         else if(instance != this)
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKey(KeyCode.F4))
             Application.Quit();
         //맥
+
         if((Input.GetKey(KeyCode.LeftApple) || Input.GetKey(KeyCode.RightApple)) && Input.GetKey(KeyCode.Q))
             Application.Quit();
     }
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
     private void StageControl()
     {
         stageTimer += Time.deltaTime;
-        if (stageTimer > 50f)
+        if (stageTimer > 25f)
         {
             stageLevel++;
             stageTimer = 0f;
@@ -89,11 +91,11 @@ public class GameManager : MonoBehaviour
     public void InvicibilityON()
     {
         invicibility = true;
-        Invoke("InvicibilityOFF", Constants.GetNumber.invicibilityOffTime);
+        Invoke("InvicibilityOff", Constants.GetNumber.invicibilityOffTime);
     }
     public void LoadStageScene()
     {
         SceneManager.LoadScene("Stage");
     }
-    public void InvicibilityOFF() => invicibility = false;
+    public void InvicibilityOff() => invicibility = false;
 }
