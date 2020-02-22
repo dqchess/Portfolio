@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private List<UnitMove> monsterHPContainer;
     #endregion
 
-    #region when stage loaded, activate monsters
+    #region when stage loaded, Initialize and activate monsters
     private void Awake()
     {
         stageLevel = 0;
@@ -32,11 +32,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         
         invicibility = false;
-        playTime = 0f;
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         deadCanvas = GameObject.FindGameObjectWithTag("deadCanvas");
         monsterHPContainer = new List<UnitMove>();
-        stageLevel = 1;
+        InitializeGame();
         Cursor.visible = false;
     }
     private void Start()
@@ -50,6 +49,17 @@ public class GameManager : MonoBehaviour
         }
         numOfMonster = monsters.Length;
     }
+
+    private void InitializeGame()
+    {
+        playTime = 0f;
+        stageLevel = 1;
+        Constants.GetNumber.leftLimit = -25f;
+        Constants.GetNumber.rightLimit = 25f;
+        Constants.GetNumber.upLimit = 25f;
+        Constants.GetNumber.downLimit = -25f;
+    }
+
     #endregion
 
     #region in stage, control num of monsters and stage level
@@ -107,7 +117,6 @@ public class GameManager : MonoBehaviour
             Application.Quit();
     }
 
-    
     public void LoadStageScene()
     {
         SceneManager.LoadScene("Stage");
