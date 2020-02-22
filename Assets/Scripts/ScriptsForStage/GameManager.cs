@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public float stageLevel;
     public DirectionalLight light;
     public bool invicibility;
+    public bool bossMonsterCreated;
     public int numOfMonster;
     private GameObject[] monsters;
     private GameObject deadCanvas;
@@ -54,17 +55,17 @@ public class GameManager : MonoBehaviour
     {
         playTime = 0f;
         stageLevel = 1;
+        bossMonsterCreated = false;
         Constants.GetNumber.leftLimit = -25f;
         Constants.GetNumber.rightLimit = 25f;
         Constants.GetNumber.upLimit = 25f;
         Constants.GetNumber.downLimit = -25f;
     }
-
     #endregion
 
-    #region in stage, control num of monsters and stage level
+    #region in stage, control monsters and stage level
     private void MonsterNumControl()
-    {
+    {//몬스터의 수가 절반 이하로 떨어지면 원래 수가 되도록 부활시킨다.
         if (numOfMonster < monsters.Length / 2)
         {
             for (int i = 0; i < monsters.Length; i++)
@@ -76,6 +77,18 @@ public class GameManager : MonoBehaviour
                     numOfMonster++;
                 }
             }
+        }
+    }
+
+    private void EvoToBossMonster()
+    {//필드의 몬스터 중 한마리를 보스 몬스터로 만든다.
+        GameObject EvoMonster = monsters[Random.Range(0, monsters.Length)];
+        if (EvoMonster.activeSelf)
+        {
+            EvoMonster.transform.localScale *= 3;
+            UnitMove statusOfBossMonster = EvoMonster.GetComponent<UnitMove>();
+            statusOfBossMonster.HP = 100000;
+            bossMonsterCreated = true;
         }
     }
     private void StageControl()
@@ -105,6 +118,12 @@ public class GameManager : MonoBehaviour
         MonsterNumControl();
         StageControl();
         playTime += Time.deltaTime;
+
+        if ((stageLevel % 5 == 0) && !bossMonsterCreated)
+            EvoToBossMonster();
+
+        else if(stageLevel % 5 != 0)
+            bossMonsterCreated = false;
     }
     private void ExitControl()
     {
