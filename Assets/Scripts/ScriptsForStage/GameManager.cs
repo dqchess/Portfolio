@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
     private void StageControl()
     {
         stageTimer += Time.deltaTime;
-        if (stageTimer > 25f)
+        if (stageTimer > 10f)
         {
             stageLevel++;
             stageTimer = 0f;

@@ -36,6 +36,8 @@ public abstract class PlayerMove : UnitMove
     {
         base.Update();
         Move();
+        if (!Input.GetMouseButton(1))
+            Rotate();
     }
 
     #region move in boundary
@@ -61,6 +63,14 @@ public abstract class PlayerMove : UnitMove
             && (transform.position.z > Constants.GetNumber.downLimit))
             return true;
         return false;
+    }
+    
+    private void Rotate()
+    {//회전
+        float targetRotation = followCam.transform.eulerAngles.y;
+        targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity,
+            turnSmoothTime);
+        transform.eulerAngles = Vector3.up * targetRotation;
     }
     #endregion
 
