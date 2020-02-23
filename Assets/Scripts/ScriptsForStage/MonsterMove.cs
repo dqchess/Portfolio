@@ -48,7 +48,7 @@ public abstract class MonsterMove : UnitMove
     }
     #endregion
 
-    #region when skill activated
+    #region when meteor skill activated
     public void playerSkill0Activated()
     {
         Vector3 bulletSummonPos =

@@ -10,6 +10,7 @@ TagManager:
   - deadCanvas
   - Weapon
   - Bullet
+  - magicAura
   layers:
   - Default
   - TransparentFX

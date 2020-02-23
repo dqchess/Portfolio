@@ -9,6 +9,7 @@ public abstract class PlayerMove : UnitMove
 {
     #region variables
     public GameObject attackBullet;
+    public GameObject magicAura;
     public Camera followCam;
     private float turnSmoothVelocity;
     private Vector3 lastMovingVelocity;
@@ -28,6 +29,7 @@ public abstract class PlayerMove : UnitMove
 
     private void Start()
     {
+        magicAura.SetActive(false);  
         followCam.enabled = true;
         attackTimer = 0f;
     }
@@ -100,6 +102,17 @@ public abstract class PlayerMove : UnitMove
 
     }
     #endregion
+    public void ActivateAura()
+    {
+        Constants.GetNumber.invicibilityOffTime += 1.5f;
+        magicAura.SetActive(true);
+        Invoke("AuraOff", 3f);
+    }
+    private void AuraOff()
+    {
+        Constants.GetNumber.invicibilityOffTime = 1.5f;
+        magicAura.SetActive(false);
+    }
 
     public void CantMovePlayer() => canMove = false;
     public void CorpseDisappear() => gameObject.SetActive(false);
