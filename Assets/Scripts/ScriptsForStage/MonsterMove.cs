@@ -54,7 +54,7 @@ public abstract class MonsterMove : UnitMove
         Vector3 bulletSummonPos =
     new Vector3(transform.position.x, transform.position.y+5f, transform.position.z);
         Instantiate(meteorBullet, bulletSummonPos, Quaternion.identity);
-        this.HP -= 90;
+        this.HP = 10;
     }
     #endregion
 }
