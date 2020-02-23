@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public DirectionalLight light;
     public bool invicibility;
     public bool bossMonsterCreated;
+    public float playerBulletCount;
     public int numOfMonster;
     private GameObject[] monsters;
     private GameObject deadCanvas;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
         playTime = 0f;
         stageLevel = 1;
         bossMonsterCreated = false;
+        playerBulletCount = 0;
         Constants.GetNumber.leftLimit = -25f;
         Constants.GetNumber.rightLimit = 25f;
         Constants.GetNumber.upLimit = 25f;

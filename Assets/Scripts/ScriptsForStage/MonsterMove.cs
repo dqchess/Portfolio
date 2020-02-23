@@ -9,6 +9,7 @@ public abstract class MonsterMove : UnitMove
     protected float monsterMoveTimer = 0;
     protected float startMoveTime;
     public UnityEvent playerHit;
+    public GameObject meteorBullet;
     private void OnCollisionEnter(Collision other)
     #endregion
 
@@ -44,6 +45,16 @@ public abstract class MonsterMove : UnitMove
                 Random.Range(Constants.GetNumber.downLimit, Constants.GetNumber.upLimit)));
             monsterMoveTimer = 0f;
         }
+    }
+    #endregion
+
+    #region when skill activated
+    public void playerSkill0Activated()
+    {
+        Vector3 bulletSummonPos =
+    new Vector3(transform.position.x, transform.position.y+5f, transform.position.z);
+        Instantiate(meteorBullet, bulletSummonPos, Quaternion.identity);
+        this.HP -= 90;
     }
     #endregion
 }

@@ -11,7 +11,7 @@ public class Constants
     public float downLimit = -25f;
     public readonly float maxHP = 100f;
     public readonly float invicibilityOffTime = 1.5f;
-    public readonly float baseATK = 100f;
+    public readonly float baseATK = 30f;
     public readonly float baseBulletSpeed = 0.3f;
     public readonly float monsterBaseSpeed = 1f;//몬스터는 점점 빨라진다.
     public readonly float moveSpeed = 5f;

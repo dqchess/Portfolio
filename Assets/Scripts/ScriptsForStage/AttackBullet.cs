@@ -8,7 +8,8 @@ public class AttackBullet : MonoBehaviour
     #region variables
     private Vector3 velocity;
     private Collider[] enemys;
-    private Collider attackTarget;
+    protected Collider attackTarget;
+    private GameObject[] otherBullets;
     private float destoryTimer;
     private float smoothTime;
     public LayerMask whatIsMonster;
@@ -21,7 +22,7 @@ public class AttackBullet : MonoBehaviour
         attackTarget = FindNearestEnemy();
         velocity = Vector3.zero;
     }
-    private void Update()
+    protected virtual void Update()
     {
         smoothTime = SpeedControl();
         transform.position =

@@ -86,13 +86,12 @@ public abstract class PlayerMove : UnitMove
     }
     protected virtual void Attack()
     {
-        float bulletCount = GameManager.instance.stageLevel;
-        if (bulletCount >= 10)
+        if (GameManager.instance.stageLevel <= 5)
         {
-            bulletCount = 10;
+            GameManager.instance.playerBulletCount = GameManager.instance.stageLevel;
         }
 
-        for (int i = 0; i < bulletCount; i++)
+        for (int i = 0; i < GameManager.instance.playerBulletCount; i++)
         {
             Vector3 bulletSummonPos =
                 new Vector3(transform.position.x + i * 3f, transform.position.y + i * 3f, transform.position.z + i * 3f);
