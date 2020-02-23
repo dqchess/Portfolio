@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
         if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKey(KeyCode.F4))
             Application.Quit();
         //맥
-
         if((Input.GetKey(KeyCode.LeftApple) || Input.GetKey(KeyCode.RightApple)) && Input.GetKey(KeyCode.Q))
             Application.Quit();
     }

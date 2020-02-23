@@ -4,6 +4,7 @@ using UnityEditor;
 public class Constants
 {
     public readonly float dieHP = 0f;
+    public readonly float skillActiveTimer = 15f;
     public float leftLimit = -25f;
     public float rightLimit = 25f;
     public float upLimit = 25f;
