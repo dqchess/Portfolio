@@ -45,6 +45,10 @@ public abstract class PlayerMove : UnitMove
     #region move in boundary
     private void Move()
     {
+        if(!photonView.IsMine && checkNetworkOrSingle._check.isNetworkplay)
+        {
+            return;
+        }
         if (IsInBoundary() && canMove)
         {
             transform.Translate(Vector3.forward * Constants.GetNumber.moveSpeed * Time.deltaTime,Space.Self);

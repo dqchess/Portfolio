@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
-public abstract class UnitMove : MonoBehaviour
+public abstract class UnitMove : MonoBehaviourPunCallbacks
 {
+    
     #region variables
     protected NavMeshAgent navMeshAgent;
     protected int attackRange;
@@ -19,6 +21,7 @@ public abstract class UnitMove : MonoBehaviour
         animator = GetComponent<Animator>();
         nowPos = gameObject.transform.position;
         timer = 0.0f;
+        
         
     }
     protected virtual void Update()

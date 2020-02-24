@@ -2,7 +2,6 @@
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-
 public abstract class MonsterMove : UnitMove
 {
     #region variables
