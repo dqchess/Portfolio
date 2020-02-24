@@ -16,4 +16,5 @@ public class TitleManager : MonoBehaviour
     }
 
     public void LoadStageScene() => SceneManager.LoadScene("Stage");
+    public void LoadRandomMatch()=>SceneManager.LoadScene("NetworkStageScene");
 }

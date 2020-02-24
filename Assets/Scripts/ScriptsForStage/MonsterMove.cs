@@ -10,9 +10,9 @@ public abstract class MonsterMove : UnitMove
     protected float startMoveTime;
     public UnityEvent playerHit;
     public GameObject meteorBullet;
-    private void OnCollisionEnter(Collision other)
     #endregion
 
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -26,14 +26,12 @@ public abstract class MonsterMove : UnitMove
         if (this.HP <= Constants.GetNumber.dieHP)
             GameManager.instance.numOfMonster -= 1;
     }
-
     #region randomly move per monster move timer
     protected void FixedUpdate()
     {
         monsterMoveTimer += Time.deltaTime;
         RandomDestSelect();
     }
-
     private void RandomDestSelect()
     {
         if (monsterMoveTimer > startMoveTime)
@@ -47,7 +45,7 @@ public abstract class MonsterMove : UnitMove
         }
     }
     #endregion
-
+    
     #region when meteor skill activated
     public void playerSkill0Activated()
     {

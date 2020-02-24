@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void EvoToBossMonster()
     {//필드의 몬스터 중 한마리를 보스 몬스터로 만든다.
         GameObject EvoMonster = monsters[Random.Range(0, monsters.Length)];
